@@ -3,9 +3,9 @@ import Main from '../main/main';
 
 function App(props) {
   // eslint-disable-next-line react/prop-types
-  const {offersCount} = props;
+  const {offersCount, offers} = props;
 
-  return <Main offersCount={offersCount} />;
+  return <Main offersCount={offersCount} offers={offers} />;
 }
 
 export default App;
