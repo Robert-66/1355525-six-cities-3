@@ -1,7 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function Main(props) {
-  // eslint-disable-next-line react/prop-types
   const {offersCount, offers} = props;
 
   return (
@@ -138,5 +138,10 @@ function Main(props) {
     </div>
   );
 }
+
+Main.propTypes = {
+  offersCount: PropTypes.number.isRequired,
+  offers: PropTypes.array.isRequired,
+};
 
 export default Main;
