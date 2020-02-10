@@ -15,6 +15,7 @@ it(`Should Main render correctly`, () => {
     .create(<Main
       offersCount={6}
       offers={offers}
+      onClickOfferName={() => {}}
     />)
     .toJSON();
 
