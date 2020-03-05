@@ -1,5 +1,6 @@
 import React from 'react';
 import PlaceCardList from '../place-card-list/place-card-list';
+import {offerType} from '../../types/offers-types.js';
 import PropTypes from 'prop-types';
 
 function Main(props) {
@@ -101,12 +102,7 @@ function Main(props) {
 }
 
 Main.propTypes = {
-  offers: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-      })).isRequired,
+  offers: PropTypes.arrayOf(offerType).isRequired,
   onClickCardName: PropTypes.func.isRequired,
 };
 

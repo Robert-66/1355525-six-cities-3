@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {offerType} from '../../types/offers-types';
 
 function PlaceCard(props) {
   const {offer, onClickCardName, onMouseEnterCard, onMouseLeaveCard} = props;
@@ -47,11 +48,7 @@ function PlaceCard(props) {
 }
 
 PlaceCard.propTypes = {
-  offer: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-  }).isRequired,
+  offer: offerType,
   onClickCardName: PropTypes.func.isRequired,
   onMouseEnterCard: PropTypes.func.isRequired,
   onMouseLeaveCard: PropTypes.func.isRequired,
