@@ -1,5 +1,5 @@
 import React from 'react';
-import Enzyme, {shallow} from 'enzyme';
+import Enzyme, {mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import Main from './main';
 
@@ -8,26 +8,39 @@ Enzyme.configure({
 });
 
 const offers = [
-  `Apartments Prinsengracht`,
-  `Lovely Studio With Canal Views`,
-  `Zandberg - Canal view apartments`,
-  `Bright & new apartment with canal view`,
-  `1637: Historic Canal View Suites`
+  {
+    id: 11,
+    name: `Apartments Prinsengracht`,
+    price: 120,
+  },
+  {
+    id: 21,
+    name: `Lovely Studio With Canal Views`,
+    price: 99,
+  },
+  {
+    id: 31,
+    name: `Zandberg - Canal view apartments`,
+    price: 140,
+  },
+  {
+    id: 41,
+    name: `Bright & new apartment with canal view`,
+    price: 125,
+  }
 ];
 
 it(`Should offer name be pressed`, () => {
-  const handleOfferNameClick = jest.fn();
-  const mainScreen = shallow(
+  const handleCardNameClick = jest.fn();
+  const main = mount(
       <Main
-        offersCount={6}
         offers={offers}
-        onClickOfferName={handleOfferNameClick}
+        onClickCardName={handleCardNameClick}
       />
   );
+  const cardName = main.find(`.place-card__name a`).first();
 
-  const offerName = mainScreen.find(`.place-card__name`).first();
+  cardName.simulate(`click`);
 
-  offerName.props().onClick();
-
-  expect(handleOfferNameClick.mock.calls.length).toBe(1);
+  expect(handleCardNameClick.mock.calls.length).toBe(1);
 });
