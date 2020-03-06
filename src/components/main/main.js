@@ -1,8 +1,10 @@
 import React from 'react';
+import PlaceCardList from '../place-card-list/place-card-list';
+import {offerType} from '../../types/offers-types.js';
 import PropTypes from 'prop-types';
 
 function Main(props) {
-  const {offersCount, offers, onClickOfferName} = props;
+  const {offers, onClickCardName} = props;
 
   return (
     <div className="page page--gray page--main">
@@ -87,50 +89,7 @@ function Main(props) {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <div style={{display: `none`}}>{offersCount}</div>
-              <div className="cities__places-list places__list tabs__content">
-                {/* eslint-disable-next-line react/prop-types */}
-                {offers.map((offer, index) => {
-                  return (
-                    <article className="cities__place-card place-card" key={offer + index}>
-                      <div className="place-card__mark">
-                        <span>Premium</span>
-                      </div>
-                      <div className="cities__image-wrapper place-card__image-wrapper">
-                        <a href="#">
-                          <img className="place-card__image" src="img/apartment-01.jpg" width="260" height="200" alt="Place image" />
-                        </a>
-                      </div>
-                      <div className="place-card__info">
-                        <div className="place-card__price-wrapper">
-                          <div className="place-card__price">
-                            <b className="place-card__price-value">&euro;120</b> <span className="place-card__price-text">&#47;&nbsp;night</span>
-                          </div>
-                          <button className="place-card__bookmark-button button" type="button">
-                            <svg className="place-card__bookmark-icon" width="18" height="19">
-                              <use xlinkHref="#icon-bookmark" />
-                            </svg>
-                            <span className="visually-hidden">To bookmarks</span>
-                          </button>
-                        </div>
-                        <div className="place-card__rating rating">
-                          <div className="place-card__stars rating__stars">
-                            <span style={{width: `80%`}} />
-                            <span className="visually-hidden">Rating</span>
-                          </div>
-                        </div>
-                        <h2
-                          className="place-card__name"
-                          onClick={onClickOfferName}
-                        >
-                          <a href="#">{offer}</a>
-                        </h2>
-                        <p className="place-card__type">Apartment</p>
-                      </div>
-                    </article>
-                  );
-                })}
-              </div>
+              <PlaceCardList offers={offers} onClickCardName={onClickCardName} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map" />
@@ -143,9 +102,8 @@ function Main(props) {
 }
 
 Main.propTypes = {
-  offersCount: PropTypes.number.isRequired,
-  offers: PropTypes.array.isRequired,
-  onClickOfferName: PropTypes.func.isRequired,
+  offers: PropTypes.arrayOf(offerType).isRequired,
+  onClickCardName: PropTypes.func.isRequired,
 };
 
 export default Main;

@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Main from './main';
+import PlaceCardList from './place-card-list';
 
 const offers = [
   {
@@ -25,13 +25,13 @@ const offers = [
   }
 ];
 
-it(`Should Main render correctly`, () => {
-  const tree = renderer
-    .create(<Main
-      offers={offers}
-      onClickCardName={() => {}}
-    />)
-    .toJSON();
+it(`PlaceCardList is rendered correctly`, () => {
+  const placeCardList = renderer.create(
+      <PlaceCardList
+        offers={offers}
+        onClickCardName={() => {}}
+      />
+  ).toJSON();
 
-  expect(tree).toMatchSnapshot();
+  expect(placeCardList).toMatchSnapshot();
 });

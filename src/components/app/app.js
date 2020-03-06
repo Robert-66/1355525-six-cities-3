@@ -2,22 +2,20 @@ import React from 'react';
 import Main from '../main/main';
 import PropTypes from 'prop-types';
 
-const handleOfferNameClick = () => {};
+const handleCardNameClick = () => {};
 
 function App(props) {
-  const {offersCount, offers} = props;
+  const {offers} = props;
 
   return (
     <Main
-      offersCount={offersCount}
       offers={offers}
-      onClickOfferName={handleOfferNameClick}
+      onClickCardName={handleCardNameClick}
     />
   );
 }
 
 App.propTypes = {
-  offersCount: PropTypes.number.isRequired,
   offers: PropTypes.array.isRequired,
 };
 

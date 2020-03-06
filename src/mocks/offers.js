@@ -1,8 +1,4 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import Main from './main';
-
-const offers = [
+export default [
   {
     id: 11,
     name: `Apartments Prinsengracht`,
@@ -24,14 +20,3 @@ const offers = [
     price: 125,
   }
 ];
-
-it(`Should Main render correctly`, () => {
-  const tree = renderer
-    .create(<Main
-      offers={offers}
-      onClickCardName={() => {}}
-    />)
-    .toJSON();
-
-  expect(tree).toMatchSnapshot();
-});
