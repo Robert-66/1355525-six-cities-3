@@ -1,11 +1,6 @@
 import React from 'react';
-import Enzyme, {mount} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import Main from './main';
-
-Enzyme.configure({
-  adapter: new Adapter(),
-});
+import renderer from 'react-test-renderer';
+import Map from './map';
 
 const offers = [
   {
@@ -33,18 +28,22 @@ const offers = [
     coords: [52.3809553943508, 4.939309666406198]
   }
 ];
+const city = [52.38333, 4.9];
 
-it(`Should offer name be pressed`, () => {
-  const handleCardNameClick = jest.fn();
-  const main = mount(
-      <Main
-        offers={offers}
-        onClickCardName={handleCardNameClick}
-      />
-  );
-  const cardName = main.find(`.place-card__name a`).first();
+it(`Map is rendered correctly`, () => {
+  const map = renderer
+    .create(
+        <Map
+          offers={offers}
+          city={city}
+        />,
+        {
+          createNodeMock: () => {
+            return document.createElement(`div`);
+          }
+        }
+    )
+    .toJSON();
 
-  cardName.simulate(`click`);
-
-  expect(handleCardNameClick.mock.calls.length).toBe(1);
+  expect(map).toMatchSnapshot();
 });
