@@ -4,11 +4,6 @@ import leaflet from 'leaflet';
 import {offerType} from '../../types/offers-types';
 import {MapSettings} from '../../const';
 
-// стили контейнера, в котором находится карта
-const style = {
-  height: `100%`,
-};
-
 class Map extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -53,17 +48,25 @@ class Map extends React.PureComponent {
     this.layer.clearLayers();
     offers.forEach((offer) => {
       leaflet
-        .marker(offer.coords, this.icon)
+        .marker(offer.coords, {icon: this.icon})
         .addTo(this.layer);
     });
   }
 
   render() {
-    return <div ref={this.mapRef} style={style} />;
+    const {className} = this.props;
+
+    return (
+      <section
+        className={`map${className ? ` ` + className : ``}`}
+        ref={this.mapRef}
+      />
+    );
   }
 }
 
 Map.propTypes = {
+  className: PropTypes.string,
   offers: PropTypes.arrayOf(offerType).isRequired,
   city: PropTypes.arrayOf(PropTypes.number).isRequired,
 };

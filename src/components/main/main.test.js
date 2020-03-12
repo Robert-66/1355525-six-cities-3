@@ -38,7 +38,7 @@ it(`Should Main render correctly`, () => {
         />,
         {
           createNodeMock: () => {
-            return document.createElement(`div`);
+            return document.createElement(`section`);
           }
         }
     )

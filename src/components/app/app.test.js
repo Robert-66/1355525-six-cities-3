@@ -37,7 +37,7 @@ it(`Render App`, () => {
         />,
         {
           createNodeMock: () => {
-            return document.createElement(`div`);
+            return document.createElement(`section`);
           }
         }
     )

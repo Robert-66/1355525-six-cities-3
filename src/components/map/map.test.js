@@ -39,7 +39,7 @@ it(`Map is rendered correctly`, () => {
         />,
         {
           createNodeMock: () => {
-            return document.createElement(`div`);
+            return document.createElement(`section`);
           }
         }
     )
