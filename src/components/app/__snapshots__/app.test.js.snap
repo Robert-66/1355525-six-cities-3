@@ -654,7 +654,7 @@ exports[`Render App 1`] = `
           className="cities__right-section"
         >
           <section
-            className="cities__map map"
+            className="map cities__map"
           />
         </div>
       </div>

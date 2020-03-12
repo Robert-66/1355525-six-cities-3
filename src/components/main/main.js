@@ -1,5 +1,6 @@
 import React from 'react';
 import PlaceCardList from '../place-card-list/place-card-list';
+import Map from '../map/map';
 import {offerType} from '../../types/offers-types.js';
 import PropTypes from 'prop-types';
 
@@ -92,7 +93,7 @@ function Main(props) {
               <PlaceCardList offers={offers} onClickCardName={onClickCardName} />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map" />
+              <Map className="cities__map" city={[52.38333, 4.9]} offers={offers} />
             </div>
           </div>
         </div>

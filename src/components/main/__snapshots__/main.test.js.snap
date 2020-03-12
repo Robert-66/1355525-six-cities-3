@@ -654,7 +654,7 @@ exports[`Should Main render correctly 1`] = `
           className="cities__right-section"
         >
           <section
-            className="cities__map map"
+            className="map cities__map"
           />
         </div>
       </div>
