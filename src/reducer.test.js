@@ -1,6 +1,7 @@
-import {CityNames} from "../const";
+import {reducer, ActionCreators, ActionTypes} from './reducer.js';
+import {CityNames} from './const';
 
-export default [
+const offers = [
   {
     city: {
       name: CityNames.AMSTERDAM,
@@ -86,3 +87,50 @@ export default [
     coords: [48.85761, 2.358499]
   }
 ];
+
+describe(`Reducer work correctly`, () => {
+
+  it(`Reducer without additional parameters should return initial state`, () => {
+    expect(reducer(undefined, {})).toEqual({
+      city: CityNames.PARIS,
+      offers,
+    });
+  });
+
+  it(`Reducer should set offers by a given value`, () => {
+    expect(reducer({
+      city: CityNames.PARIS,
+      offers: [],
+    }, ActionCreators.setOffers(offers))).toEqual({
+      city: CityNames.PARIS,
+      offers,
+    });
+  });
+
+  it(`Reducer should change city by a given value`, () => {
+    expect(reducer({
+      city: ``,
+      offers: [],
+    }, ActionCreators.changeCity(CityNames.PARIS))).toEqual({
+      city: CityNames.PARIS,
+      offers: [],
+    });
+  });
+});
+
+describe(`Action creators work correctly`, () => {
+
+  it(`Action creator for change city returns correct action`, () => {
+    expect(ActionCreators.changeCity(CityNames.PARIS)).toEqual({
+      type: ActionTypes.CHANGE_CITY,
+      payload: CityNames.PARIS
+    });
+  });
+
+  it(`Action creator for set offers returns correct action`, () => {
+    expect(ActionCreators.setOffers(offers)).toEqual({
+      type: ActionTypes.SET_OFFERS,
+      payload: offers
+    });
+  });
+});
