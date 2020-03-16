@@ -4,7 +4,7 @@ import {offerType} from '../../types/offers-types';
 
 function PlaceCard(props) {
   const {offer, onClickCardName, onMouseEnterCard, onMouseLeaveCard} = props;
-  const {name, price} = offer;
+  const {name, price, previewImage, isPremium, type, rating} = offer;
 
   return (
     <article
@@ -12,12 +12,14 @@ function PlaceCard(props) {
       onMouseEnter={() => onMouseEnterCard(offer)}
       onMouseLeave={() => onMouseLeaveCard()}
     >
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div>
+      {isPremium && (
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>
+      )}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
-          <img className="place-card__image" src="img/apartment-01.jpg" width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
         </a>
       </div>
       <div className="place-card__info">
@@ -34,14 +36,14 @@ function PlaceCard(props) {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `80%`}} />
+            <span style={{width: `${rating * 100 / 5}%`}} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
           <a href="#" onClick={onClickCardName}>{name}</a>
         </h2>
-        <p className="place-card__type">Apartment</p>
+        <p className="place-card__type">{type}</p>
       </div>
     </article>
   );
