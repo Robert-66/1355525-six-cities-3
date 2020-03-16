@@ -3,15 +3,25 @@ import {configure, shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import PlaceCard from './place-card';
+import {CityNames} from '../../const';
 
 configure({
   adapter: new Adapter(),
 });
 
 const offer = {
+  city: {
+    name: CityNames.AMSTERDAM,
+    location: {
+      latitude: 52.37454,
+      longitude: 4.897976,
+      zoom: 13
+    }
+  },
   id: 11,
   name: `Apartments Prinsengracht`,
   price: 120,
+  coords: [52.3909553943508, 4.85309666406198],
 };
 
 describe(`PlaceCard callbacks`, () => {

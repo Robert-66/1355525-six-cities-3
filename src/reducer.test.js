@@ -1,12 +1,5 @@
-import React from 'react';
-import Enzyme, {mount} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import {Main} from './main';
-import {CityNames} from '../../const';
-
-Enzyme.configure({
-  adapter: new Adapter(),
-});
+import {reducer, ActionCreators, ActionTypes} from './reducer.js';
+import {CityNames} from './const';
 
 const offers = [
   {
@@ -95,25 +88,49 @@ const offers = [
   }
 ];
 
-const cities = [
-  `Amsterdam`,
-  `Paris`
-];
+describe(`Reducer work correctly`, () => {
 
-it(`Should offer name be pressed`, () => {
-  const handleCardNameClick = jest.fn();
-  const main = mount(
-      <Main
-        offers={offers}
-        cities={cities}
-        currentCity="Paris"
-        onClickCity={() => {}}
-        onClickCardName={handleCardNameClick}
-      />
-  );
-  const cardName = main.find(`.place-card__name a`).first();
+  it(`Reducer without additional parameters should return initial state`, () => {
+    expect(reducer(undefined, {})).toEqual({
+      city: CityNames.PARIS,
+      offers,
+    });
+  });
 
-  cardName.simulate(`click`);
+  it(`Reducer should set offers by a given value`, () => {
+    expect(reducer({
+      city: CityNames.PARIS,
+      offers: [],
+    }, ActionCreators.setOffers(offers))).toEqual({
+      city: CityNames.PARIS,
+      offers,
+    });
+  });
 
-  expect(handleCardNameClick.mock.calls.length).toBe(1);
+  it(`Reducer should change city by a given value`, () => {
+    expect(reducer({
+      city: ``,
+      offers: [],
+    }, ActionCreators.changeCity(CityNames.PARIS))).toEqual({
+      city: CityNames.PARIS,
+      offers: [],
+    });
+  });
+});
+
+describe(`Action creators work correctly`, () => {
+
+  it(`Action creator for change city returns correct action`, () => {
+    expect(ActionCreators.changeCity(CityNames.PARIS)).toEqual({
+      type: ActionTypes.CHANGE_CITY,
+      payload: CityNames.PARIS
+    });
+  });
+
+  it(`Action creator for set offers returns correct action`, () => {
+    expect(ActionCreators.setOffers(offers)).toEqual({
+      type: ActionTypes.SET_OFFERS,
+      payload: offers
+    });
+  });
 });

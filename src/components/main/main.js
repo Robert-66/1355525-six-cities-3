@@ -1,11 +1,23 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {ActionCreators} from '../../reducer';
+import {MAX_CITIES_COUNT} from '../../const';
 import PlaceCardList from '../place-card-list/place-card-list';
 import Map from '../map/map';
+import CitiesList from '../cities-list/cities-list';
 import {offerType} from '../../types/offers-types.js';
 import PropTypes from 'prop-types';
 
 function Main(props) {
-  const {offers, onClickCardName} = props;
+  const {
+    offers,
+    onClickCardName,
+    cities,
+    currentCity,
+    onClickCity
+  } = props;
+
+  const currentCityLocation = [offers[0].city.location.latitude, offers[0].city.location.longitude];
 
   return (
     <div className="page page--gray page--main">
@@ -34,47 +46,17 @@ function Main(props) {
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
-          </section>
-        </div>
+        <CitiesList
+          cities={cities}
+          currentCity={currentCity}
+          maxCitiesCount={MAX_CITIES_COUNT}
+          onClickCity={onClickCity}
+        />
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>&nbsp;
                 <span className="places__sorting-type" tabIndex="0">
@@ -93,7 +75,7 @@ function Main(props) {
               <PlaceCardList offers={offers} onClickCardName={onClickCardName} />
             </section>
             <div className="cities__right-section">
-              <Map className="cities__map" city={[52.38333, 4.9]} offers={offers} />
+              <Map className="cities__map" city={currentCityLocation} offers={offers} />
             </div>
           </div>
         </div>
@@ -104,7 +86,42 @@ function Main(props) {
 
 Main.propTypes = {
   offers: PropTypes.arrayOf(offerType).isRequired,
+  cities: PropTypes.array.isRequired,
+  currentCity: PropTypes.string.isRequired,
+  onClickCity: PropTypes.func.isRequired,
   onClickCardName: PropTypes.func.isRequired,
 };
 
-export default Main;
+function mapStateToProps(state) {
+  return {
+    offers: getOffers(state),
+    currentCity: state.city,
+    cities: getCities(state),
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onClickCity: (city) => dispatch(ActionCreators.changeCity(city))
+  };
+}
+
+export {Main};
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
+
+function getCities(state) {
+  const cities = state.offers.map((offer) => offer.city);
+  let uniqCities = [];
+
+  for (let city of cities) {
+    if (!uniqCities.includes(city.name)) {
+      uniqCities.push(city.name);
+    }
+  }
+
+  return uniqCities;
+}
+
+function getOffers(state) {
+  return state.offers.filter((offer) => (offer.city.name === state.city));
+}
