@@ -16,8 +16,8 @@ function Main(props) {
     currentCity,
     onClickCity
   } = props;
-  const currentOffers = offers.filter((offer) => (offer.city.name === currentCity));
-  const currentCityLocation = [currentOffers[0].city.location.latitude, currentOffers[0].city.location.longitude];
+
+  const currentCityLocation = [offers[0].city.location.latitude, offers[0].city.location.longitude];
 
   return (
     <div className="page page--gray page--main">
@@ -56,7 +56,7 @@ function Main(props) {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{currentOffers.length} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>&nbsp;
                 <span className="places__sorting-type" tabIndex="0">
@@ -72,10 +72,10 @@ function Main(props) {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <PlaceCardList offers={currentOffers} onClickCardName={onClickCardName} />
+              <PlaceCardList offers={offers} onClickCardName={onClickCardName} />
             </section>
             <div className="cities__right-section">
-              <Map className="cities__map" city={currentCityLocation} offers={currentOffers} />
+              <Map className="cities__map" city={currentCityLocation} offers={offers} />
             </div>
           </div>
         </div>
@@ -94,20 +94,9 @@ Main.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    offers: state.offers,
+    offers: getOffers(state),
     currentCity: state.city,
-    cities: (() => {
-      const cities = state.offers.map((offer) => offer.city);
-      let uniqCities = [];
-
-      for (let city of cities) {
-        if (!uniqCities.includes(city.name)) {
-          uniqCities.push(city.name);
-        }
-      }
-
-      return uniqCities;
-    })(),
+    cities: getCities(state),
   };
 }
 
@@ -119,3 +108,20 @@ function mapDispatchToProps(dispatch) {
 
 export {Main};
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
+
+function getCities(state) {
+  const cities = state.offers.map((offer) => offer.city);
+  let uniqCities = [];
+
+  for (let city of cities) {
+    if (!uniqCities.includes(city.name)) {
+      uniqCities.push(city.name);
+    }
+  }
+
+  return uniqCities;
+}
+
+function getOffers(state) {
+  return state.offers.filter((offer) => (offer.city.name === state.city));
+}

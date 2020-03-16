@@ -1,7 +1,9 @@
 import React from 'react';
 import Main from '../main/main';
 
-const handleCardNameClick = () => {};
+function handleCardNameClick() {
+  return {};
+}
 
 function App() {
   return (
