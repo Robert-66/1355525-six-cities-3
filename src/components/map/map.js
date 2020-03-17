@@ -26,6 +26,11 @@ class Map extends React.PureComponent {
       iconUrl: MapSettings.ICON_URL,
       iconSize: MapSettings.ICON_SIZE,
     });
+
+    this.iconActive = leaflet.icon({
+      iconUrl: MapSettings.ICON_URL_ACTIVE,
+      iconSize: MapSettings.ICON_SIZE,
+    });
   }
 
   componentDidMount() {
@@ -39,7 +44,7 @@ class Map extends React.PureComponent {
       this.map.setView(this.props.city, MapSettings.ZOOM);
     }
 
-    if (prevProps.offers !== this.props.offers) {
+    if (prevProps.offers !== this.props.offers || prevProps.hoverOfferId !== this.props.hoverOfferId) {
       this.updateMarkers(this.props.offers);
     }
   }
@@ -48,7 +53,7 @@ class Map extends React.PureComponent {
     this.layer.clearLayers();
     offers.forEach((offer) => {
       leaflet
-        .marker(offer.coords, {icon: this.icon})
+        .marker(offer.coords, {icon: offer.id === this.props.hoverOfferId ? this.iconActive : this.icon})
         .addTo(this.layer);
     });
   }
@@ -69,6 +74,7 @@ Map.propTypes = {
   className: PropTypes.string,
   offers: PropTypes.arrayOf(offerType).isRequired,
   city: PropTypes.arrayOf(PropTypes.number).isRequired,
+  hoverOfferId: PropTypes.number,
 };
 
 export default Map;

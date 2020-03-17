@@ -16,8 +16,11 @@ function Main(props) {
     cities,
     currentCity,
     currentCityLocation,
+    hoverOfferId,
     onClickCity,
     onSelectSortByOptionIndex,
+    onMouseEnterCard,
+    onMouseLeaveCard,
   } = props;
 
   return (
@@ -64,10 +67,20 @@ function Main(props) {
                   onSelect={onSelectSortByOptionIndex}
                 />
               </form>
-              <PlaceCardList offers={offers} onClickCardName={onClickCardName} />
+              <PlaceCardList
+                offers={offers}
+                onClickCardName={onClickCardName}
+                onMouseEnterCard={onMouseEnterCard}
+                onMouseLeaveCard={onMouseLeaveCard}
+              />
             </section>
             <div className="cities__right-section">
-              <Map className="cities__map" city={currentCityLocation} offers={offers} />
+              <Map
+                className="cities__map"
+                city={currentCityLocation}
+                offers={offers}
+                hoverOfferId={hoverOfferId}
+              />
             </div>
           </div>
         </div>
@@ -81,9 +94,12 @@ Main.propTypes = {
   cities: PropTypes.array.isRequired,
   currentCity: PropTypes.string.isRequired,
   currentCityLocation: PropTypes.arrayOf(PropTypes.number).isRequired,
+  hoverOfferId: PropTypes.number,
   onClickCity: PropTypes.func.isRequired,
   onClickCardName: PropTypes.func.isRequired,
   onSelectSortByOptionIndex: PropTypes.func.isRequired,
+  onMouseEnterCard: PropTypes.func.isRequired,
+  onMouseLeaveCard: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -92,6 +108,7 @@ function mapStateToProps(state) {
     currentCity: state.city,
     currentCityLocation: [getOffers(state)[0].city.location.latitude, getOffers(state)[0].city.location.longitude],
     cities: getCities(state),
+    hoverOfferId: state.hoverOfferId,
   };
 }
 
@@ -99,6 +116,8 @@ function mapDispatchToProps(dispatch) {
   return {
     onClickCity: (city) => dispatch(ActionCreators.changeCity(city)),
     onSelectSortByOptionIndex: (index) => dispatch(ActionCreators.setSortBySelectedOptionIndex(index)),
+    onMouseEnterCard: (id) => dispatch(ActionCreators.setHoverOfferId(id)),
+    onMouseLeaveCard: () => dispatch(ActionCreators.resetHoverOfferId())
   };
 }
 

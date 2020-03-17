@@ -3,13 +3,25 @@ import PropTypes from 'prop-types';
 import {offerType} from '../../types/offers-types';
 
 function PlaceCard(props) {
-  const {offer, onClickCardName, onMouseEnterCard, onMouseLeaveCard} = props;
-  const {name, price, previewImage, isPremium, type, rating} = offer;
+  const {
+    offer,
+    onClickCardName,
+    onMouseEnterCard,
+    onMouseLeaveCard
+  } = props;
+  const {
+    name,
+    price,
+    previewImage,
+    isPremium,
+    type,
+    rating
+  } = offer;
 
   return (
     <article
       className="cities__place-card place-card"
-      onMouseEnter={() => onMouseEnterCard(offer)}
+      onMouseEnter={() => onMouseEnterCard(offer.id)}
       onMouseLeave={() => onMouseLeaveCard()}
     >
       {isPremium && (
