@@ -24,7 +24,8 @@ class SortingOptions extends React.PureComponent {
       isOpen: false,
       activeOptionIndex: index,
     });
-    this.props.onSelect && this.props.onSelect(index);
+
+    this.props.onSelect(index);
   }
 
   render() {
@@ -63,7 +64,7 @@ class SortingOptions extends React.PureComponent {
 SortingOptions.propTypes = {
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
   defaultIndex: PropTypes.number,
-  onSelect: PropTypes.func,
+  onSelect: PropTypes.func.isRequired,
 };
 
 SortingOptions.defaultProps = {
