@@ -135,6 +135,7 @@ exports[`Should Main render correctly 1`] = `
              
             <span
               className="places__sorting-type"
+              onClick={[Function]}
               tabIndex="0"
             >
               Popular
@@ -149,29 +150,29 @@ exports[`Should Main render correctly 1`] = `
               </svg>
             </span>
             <ul
-              className="places__options places__options--custom places__options--opened"
+              className="places__options places__options--custom"
             >
               <li
                 className="places__option places__option--active"
-                tabIndex="0"
+                onClick={[Function]}
               >
                 Popular
               </li>
               <li
                 className="places__option"
-                tabIndex="0"
+                onClick={[Function]}
               >
                 Price: low to high
               </li>
               <li
                 className="places__option"
-                tabIndex="0"
+                onClick={[Function]}
               >
                 Price: high to low
               </li>
               <li
                 className="places__option"
-                tabIndex="0"
+                onClick={[Function]}
               >
                 Top rated first
               </li>
@@ -185,13 +186,6 @@ exports[`Should Main render correctly 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
             >
-              <div
-                className="place-card__mark"
-              >
-                <span>
-                  Premium
-                </span>
-              </div>
               <div
                 className="cities__image-wrapper place-card__image-wrapper"
               >
@@ -258,7 +252,7 @@ exports[`Should Main render correctly 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "80%",
+                          "width": "86%",
                         }
                       }
                     />
@@ -282,7 +276,7 @@ exports[`Should Main render correctly 1`] = `
                 <p
                   className="place-card__type"
                 >
-                  Apartment
+                  apartment
                 </p>
               </div>
             </article>
@@ -364,7 +358,7 @@ exports[`Should Main render correctly 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "80%",
+                          "width": "62%",
                         }
                       }
                     />
@@ -388,7 +382,7 @@ exports[`Should Main render correctly 1`] = `
                 <p
                   className="place-card__type"
                 >
-                  Apartment
+                  apartment
                 </p>
               </div>
             </article>
@@ -470,7 +464,7 @@ exports[`Should Main render correctly 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "80%",
+                          "width": "100%",
                         }
                       }
                     />
@@ -494,7 +488,7 @@ exports[`Should Main render correctly 1`] = `
                 <p
                   className="place-card__type"
                 >
-                  Apartment
+                  apartment
                 </p>
               </div>
             </article>
@@ -503,13 +497,6 @@ exports[`Should Main render correctly 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
             >
-              <div
-                className="place-card__mark"
-              >
-                <span>
-                  Premium
-                </span>
-              </div>
               <div
                 className="cities__image-wrapper place-card__image-wrapper"
               >
@@ -576,7 +563,7 @@ exports[`Should Main render correctly 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "80%",
+                          "width": "98.00000000000001%",
                         }
                       }
                     />
@@ -600,7 +587,7 @@ exports[`Should Main render correctly 1`] = `
                 <p
                   className="place-card__type"
                 >
-                  Apartment
+                  room
                 </p>
               </div>
             </article>
@@ -682,7 +669,7 @@ exports[`Should Main render correctly 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "80%",
+                          "width": "70%",
                         }
                       }
                     />
@@ -706,7 +693,7 @@ exports[`Should Main render correctly 1`] = `
                 <p
                   className="place-card__type"
                 >
-                  Apartment
+                  room
                 </p>
               </div>
             </article>
@@ -715,13 +702,6 @@ exports[`Should Main render correctly 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
             >
-              <div
-                className="place-card__mark"
-              >
-                <span>
-                  Premium
-                </span>
-              </div>
               <div
                 className="cities__image-wrapper place-card__image-wrapper"
               >
@@ -788,7 +768,7 @@ exports[`Should Main render correctly 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "80%",
+                          "width": "96%",
                         }
                       }
                     />
@@ -812,7 +792,7 @@ exports[`Should Main render correctly 1`] = `
                 <p
                   className="place-card__type"
                 >
-                  Apartment
+                  apartment
                 </p>
               </div>
             </article>

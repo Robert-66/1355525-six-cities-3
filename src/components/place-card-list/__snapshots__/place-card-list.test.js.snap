@@ -10,13 +10,6 @@ exports[`PlaceCardList is rendered correctly 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="place-card__mark"
-    >
-      <span>
-        Premium
-      </span>
-    </div>
-    <div
       className="cities__image-wrapper place-card__image-wrapper"
     >
       <a
@@ -82,7 +75,7 @@ exports[`PlaceCardList is rendered correctly 1`] = `
           <span
             style={
               Object {
-                "width": "80%",
+                "width": "86%",
               }
             }
           />
@@ -106,7 +99,7 @@ exports[`PlaceCardList is rendered correctly 1`] = `
       <p
         className="place-card__type"
       >
-        Apartment
+        apartment
       </p>
     </div>
   </article>
@@ -188,7 +181,7 @@ exports[`PlaceCardList is rendered correctly 1`] = `
           <span
             style={
               Object {
-                "width": "80%",
+                "width": "62%",
               }
             }
           />
@@ -212,7 +205,7 @@ exports[`PlaceCardList is rendered correctly 1`] = `
       <p
         className="place-card__type"
       >
-        Apartment
+        apartment
       </p>
     </div>
   </article>
@@ -294,7 +287,7 @@ exports[`PlaceCardList is rendered correctly 1`] = `
           <span
             style={
               Object {
-                "width": "80%",
+                "width": "100%",
               }
             }
           />
@@ -318,7 +311,7 @@ exports[`PlaceCardList is rendered correctly 1`] = `
       <p
         className="place-card__type"
       >
-        Apartment
+        apartment
       </p>
     </div>
   </article>
@@ -327,13 +320,6 @@ exports[`PlaceCardList is rendered correctly 1`] = `
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
-    <div
-      className="place-card__mark"
-    >
-      <span>
-        Premium
-      </span>
-    </div>
     <div
       className="cities__image-wrapper place-card__image-wrapper"
     >
@@ -400,7 +386,7 @@ exports[`PlaceCardList is rendered correctly 1`] = `
           <span
             style={
               Object {
-                "width": "80%",
+                "width": "98.00000000000001%",
               }
             }
           />
@@ -424,7 +410,7 @@ exports[`PlaceCardList is rendered correctly 1`] = `
       <p
         className="place-card__type"
       >
-        Apartment
+        room
       </p>
     </div>
   </article>
@@ -506,7 +492,7 @@ exports[`PlaceCardList is rendered correctly 1`] = `
           <span
             style={
               Object {
-                "width": "80%",
+                "width": "70%",
               }
             }
           />
@@ -530,7 +516,7 @@ exports[`PlaceCardList is rendered correctly 1`] = `
       <p
         className="place-card__type"
       >
-        Apartment
+        room
       </p>
     </div>
   </article>
@@ -539,13 +525,6 @@ exports[`PlaceCardList is rendered correctly 1`] = `
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
-    <div
-      className="place-card__mark"
-    >
-      <span>
-        Premium
-      </span>
-    </div>
     <div
       className="cities__image-wrapper place-card__image-wrapper"
     >
@@ -612,7 +591,7 @@ exports[`PlaceCardList is rendered correctly 1`] = `
           <span
             style={
               Object {
-                "width": "80%",
+                "width": "96%",
               }
             }
           />
@@ -636,7 +615,7 @@ exports[`PlaceCardList is rendered correctly 1`] = `
       <p
         className="place-card__type"
       >
-        Apartment
+        apartment
       </p>
     </div>
   </article>

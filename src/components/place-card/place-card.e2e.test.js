@@ -18,15 +18,19 @@ const offer = {
       zoom: 13
     }
   },
+  previewImage: `img/apartment-01.jpg`,
+  isPremium: false,
+  type: `apartment`,
   id: 11,
   name: `Apartments Prinsengracht`,
   price: 120,
   coords: [52.3909553943508, 4.85309666406198],
+  rating: 4.3,
 };
 
 describe(`PlaceCard callbacks`, () => {
 
-  it(`When the cursor over the offer card in the callback onMouseEnterCard gets information about the offer`, () => {
+  it(`When the cursor over the offer card in the callback onMouseEnterCard gets information about the offer id`, () => {
     const handleMouseEnterCard = jest.fn();
     const placeCard = shallow(<PlaceCard
       offer={offer}
@@ -39,7 +43,7 @@ describe(`PlaceCard callbacks`, () => {
 
     expect(handleMouseEnterCard).toHaveBeenCalledTimes(1);
 
-    expect(handleMouseEnterCard.mock.calls[0][0]).toMatchObject(offer);
+    expect(handleMouseEnterCard.mock.calls[0][0]).toBe(offer.id);
   });
 
   it(`When the cursor leaves the offer card, the callback onMouseLeaveCard is called`, () => {
