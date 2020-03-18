@@ -7,13 +7,6 @@ exports[`PlaceCard is rendered correctly 1`] = `
   onMouseLeave={[Function]}
 >
   <div
-    className="place-card__mark"
-  >
-    <span>
-      Premium
-    </span>
-  </div>
-  <div
     className="cities__image-wrapper place-card__image-wrapper"
   >
     <a
@@ -79,7 +72,7 @@ exports[`PlaceCard is rendered correctly 1`] = `
         <span
           style={
             Object {
-              "width": "80%",
+              "width": "86%",
             }
           }
         />
@@ -103,7 +96,7 @@ exports[`PlaceCard is rendered correctly 1`] = `
     <p
       className="place-card__type"
     >
-      Apartment
+      apartment
     </p>
   </div>
 </article>

@@ -9,7 +9,11 @@ export const offerType = PropTypes.shape({
       zoom: PropTypes.number.isRequired,
     }).isRequired,
   }).isRequired,
+  previewImage: PropTypes.string.isRequired,
+  isPremium: PropTypes.bool.isRequired,
+  type: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
+  rating: PropTypes.number.isRequired,
 }).isRequired;

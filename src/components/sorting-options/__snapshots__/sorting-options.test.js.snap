@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SortingOptions is rendered correctly 1`] = `
+Array [
+  <span
+    className="places__sorting-caption"
+  >
+    Sort by
+  </span>,
+  " ",
+  <span
+    className="places__sorting-type"
+    onClick={[Function]}
+    tabIndex="0"
+  >
+    Popular
+    <svg
+      className="places__sorting-arrow"
+      height="4"
+      width="7"
+    >
+      <use
+        xlinkHref="#icon-arrow-select"
+      />
+    </svg>
+  </span>,
+  <ul
+    className="places__options places__options--custom"
+  >
+    <li
+      className="places__option places__option--active"
+      onClick={[Function]}
+    >
+      Popular
+    </li>
+    <li
+      className="places__option"
+      onClick={[Function]}
+    >
+      Price: low to high
+    </li>
+    <li
+      className="places__option"
+      onClick={[Function]}
+    >
+      Price: high to low
+    </li>
+    <li
+      className="places__option"
+      onClick={[Function]}
+    >
+      Top rated first
+    </li>
+  </ul>,
+]
+`;

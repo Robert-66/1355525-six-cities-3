@@ -10,10 +10,14 @@ export default [
         zoom: 13
       }
     },
+    previewImage: `img/apartment-01.jpg`,
+    isPremium: false,
+    type: `apartment`,
     id: 11,
     name: `Apartments Prinsengracht`,
     price: 120,
     coords: [52.3909553943508, 4.85309666406198],
+    rating: 4.3,
   },
   {
     city: {
@@ -24,10 +28,14 @@ export default [
         zoom: 13
       }
     },
+    previewImage: `img/apartment-01.jpg`,
+    isPremium: true,
+    type: `apartment`,
     id: 21,
     name: `Lovely Studio With Canal Views`,
     price: 99,
     coords: [52.369553943508, 4.85309666406198],
+    rating: 3.1,
   },
   {
     city: {
@@ -38,10 +46,14 @@ export default [
         zoom: 13
       }
     },
+    previewImage: `img/apartment-01.jpg`,
+    isPremium: true,
+    type: `apartment`,
     id: 31,
     name: `Zandberg - Canal view apartments`,
     price: 140,
     coords: [52.3909553943508, 4.929309666406198],
+    rating: 5,
   },
   {
     city: {
@@ -52,10 +64,14 @@ export default [
         zoom: 13
       }
     },
+    previewImage: `img/apartment-01.jpg`,
+    isPremium: false,
+    type: `room`,
     id: 41,
     name: `Bright & new apartment with canal view`,
     price: 125,
-    coords: [52.3809553943508, 4.939309666406198]
+    coords: [52.3809553943508, 4.939309666406198],
+    rating: 4.9,
   },
   {
     city: {
@@ -66,10 +82,14 @@ export default [
         zoom: 13
       }
     },
+    previewImage: `img/apartment-01.jpg`,
+    isPremium: true,
+    type: `room`,
     id: 51,
     name: `Tile House`,
     price: 125,
-    coords: [48.877610000000004, 2.333499]
+    coords: [48.877610000000004, 2.333499],
+    rating: 3.5,
   },
   {
     city: {
@@ -80,9 +100,13 @@ export default [
         zoom: 13
       }
     },
+    previewImage: `img/apartment-01.jpg`,
+    isPremium: false,
+    type: `apartment`,
     id: 61,
     name: `Waterfront with extraordinary view`,
     price: 210,
-    coords: [48.85761, 2.358499]
+    coords: [48.85761, 2.358499],
+    rating: 4.8,
   }
 ];

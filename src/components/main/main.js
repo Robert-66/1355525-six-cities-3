@@ -5,6 +5,7 @@ import {MAX_CITIES_COUNT} from '../../const';
 import PlaceCardList from '../place-card-list/place-card-list';
 import Map from '../map/map';
 import CitiesList from '../cities-list/cities-list';
+import SortingOptions from '../sorting-options/sorting-options';
 import {offerType} from '../../types/offers-types.js';
 import PropTypes from 'prop-types';
 
@@ -14,10 +15,13 @@ function Main(props) {
     onClickCardName,
     cities,
     currentCity,
-    onClickCity
+    currentCityLocation,
+    hoverOfferId,
+    onClickCity,
+    onSelectSortByOptionIndex,
+    onMouseEnterCard,
+    onMouseLeaveCard,
   } = props;
-
-  const currentCityLocation = [offers[0].city.location.latitude, offers[0].city.location.longitude];
 
   return (
     <div className="page page--gray page--main">
@@ -58,24 +62,25 @@ function Main(props) {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offers.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>&nbsp;
-                <span className="places__sorting-type" tabIndex="0">
-                  Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select" />
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex="0">Popular</li>
-                  <li className="places__option" tabIndex="0">Price: low to high</li>
-                  <li className="places__option" tabIndex="0">Price: high to low</li>
-                  <li className="places__option" tabIndex="0">Top rated first</li>
-                </ul>
+                <SortingOptions
+                  options={[`Popular`, `Price: low to high`, `Price: high to low`, `Top rated first`]}
+                  onSelect={onSelectSortByOptionIndex}
+                />
               </form>
-              <PlaceCardList offers={offers} onClickCardName={onClickCardName} />
+              <PlaceCardList
+                offers={offers}
+                onClickCardName={onClickCardName}
+                onMouseEnterCard={onMouseEnterCard}
+                onMouseLeaveCard={onMouseLeaveCard}
+              />
             </section>
             <div className="cities__right-section">
-              <Map className="cities__map" city={currentCityLocation} offers={offers} />
+              <Map
+                className="cities__map"
+                city={currentCityLocation}
+                offers={offers}
+                hoverOfferId={hoverOfferId}
+              />
             </div>
           </div>
         </div>
@@ -88,21 +93,31 @@ Main.propTypes = {
   offers: PropTypes.arrayOf(offerType).isRequired,
   cities: PropTypes.array.isRequired,
   currentCity: PropTypes.string.isRequired,
+  currentCityLocation: PropTypes.arrayOf(PropTypes.number).isRequired,
+  hoverOfferId: PropTypes.number,
   onClickCity: PropTypes.func.isRequired,
   onClickCardName: PropTypes.func.isRequired,
+  onSelectSortByOptionIndex: PropTypes.func.isRequired,
+  onMouseEnterCard: PropTypes.func.isRequired,
+  onMouseLeaveCard: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
     offers: getOffers(state),
     currentCity: state.city,
+    currentCityLocation: [getOffers(state)[0].city.location.latitude, getOffers(state)[0].city.location.longitude],
     cities: getCities(state),
+    hoverOfferId: state.hoverOfferId,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    onClickCity: (city) => dispatch(ActionCreators.changeCity(city))
+    onClickCity: (city) => dispatch(ActionCreators.changeCity(city)),
+    onSelectSortByOptionIndex: (index) => dispatch(ActionCreators.setSortBySelectedOptionIndex(index)),
+    onMouseEnterCard: (id) => dispatch(ActionCreators.setHoverOfferId(id)),
+    onMouseLeaveCard: () => dispatch(ActionCreators.resetHoverOfferId())
   };
 }
 
@@ -123,5 +138,16 @@ function getCities(state) {
 }
 
 function getOffers(state) {
-  return state.offers.filter((offer) => (offer.city.name === state.city));
+  const offers = state.offers.filter((offer) => (offer.city.name === state.city));
+
+  switch (state.sortBySelectedOptionIndex) {
+    case 1:
+      return offers.sort((a, b) => b.price - a.price);
+    case 2:
+      return offers.sort((a, b) => a.price - b.price);
+    case 3:
+      return offers.sort((a, b) => b.rating - a.rating);
+  }
+
+  return offers;
 }
