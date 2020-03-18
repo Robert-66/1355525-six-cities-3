@@ -1,34 +1,46 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function CitiesList(props) {
-  const {cities, currentCity, maxCitiesCount, onClickCity} = props;
-  const citiesResult = cities.slice(0, maxCitiesCount - 1);
+class CitiesList extends React.PureComponent {
+  constructor(props) {
+    super(props);
 
-  function handleCityClick(e, city) {
-    e.preventDefault();
-    onClickCity(city);
+    this.handleCityClick = this.handleCityClick.bind(this);
   }
 
-  return (
-    <div className="tabs">
-      <section className="locations container">
-        <ul className="locations__list tabs__list">
-          {citiesResult.map((city, index) => (
-            <li key={`${city}-${index}`} className="locations__item">
-              <a
-                className={`locations__item-link ${city === currentCity ? `tabs__item--active` : `tabs__item`}`}
-                href="#"
-                onClick={(e) => handleCityClick(e, city)}
-              >
-                <span>{city}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
-    </div>
-  );
+  handleCityClick(e, city) {
+    e.preventDefault();
+    this.props.onClickCity(city);
+  }
+
+  render() {
+    const {
+      cities,
+      currentCity,
+      maxCitiesCount
+    } = this.props;
+    const citiesResult = cities.slice(0, maxCitiesCount - 1);
+
+    return (
+      <div className="tabs">
+        <section className="locations container">
+          <ul className="locations__list tabs__list">
+            {citiesResult.map((city, index) => (
+              <li key={`${city}-${index}`} className="locations__item">
+                <a
+                  className={`locations__item-link ${city === currentCity ? `tabs__item--active` : `tabs__item`}`}
+                  href="#"
+                  onClick={(e) => this.handleCityClick(e, city)}
+                >
+                  <span>{city}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+    );
+  }
 }
 
 CitiesList.propTypes = {
