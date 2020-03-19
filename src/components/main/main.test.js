@@ -119,15 +119,18 @@ const cities = [
   `Paris`
 ];
 
+const sortingOptions = [`Popular`, `Price: low to high`, `Price: high to low`, `Top rated first`];
 
 it(`Should Main render correctly`, () => {
   const tree = renderer
     .create(
         <Main
           offers={offers}
+          sortedOffers={offers}
           cities={cities}
           currentCity="Paris"
           currentCityLocation={[48.877610000000004, 2.333499]}
+          sortingOptions={sortingOptions}
           onSelectSortByOptionIndex={() => {}}
           onClickCity={() => {}}
           onClickCardName={() => {}}

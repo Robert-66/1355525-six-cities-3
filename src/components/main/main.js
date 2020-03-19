@@ -12,11 +12,13 @@ import PropTypes from 'prop-types';
 function Main(props) {
   const {
     offers,
+    sortedOffers,
     onClickCardName,
     cities,
     currentCity,
     currentCityLocation,
     hoverOfferId,
+    sortingOptions,
     onClickCity,
     onSelectSortByOptionIndex,
     onMouseEnterCard,
@@ -63,12 +65,12 @@ function Main(props) {
               <b className="places__found">{offers.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <SortingOptions
-                  options={[`Popular`, `Price: low to high`, `Price: high to low`, `Top rated first`]}
+                  options={sortingOptions}
                   onSelect={onSelectSortByOptionIndex}
                 />
               </form>
               <PlaceCardList
-                offers={offers}
+                offers={sortedOffers}
                 onClickCardName={onClickCardName}
                 onMouseEnterCard={onMouseEnterCard}
                 onMouseLeaveCard={onMouseLeaveCard}
@@ -91,10 +93,12 @@ function Main(props) {
 
 Main.propTypes = {
   offers: PropTypes.arrayOf(offerType).isRequired,
+  sortedOffers: PropTypes.arrayOf(offerType).isRequired,
   cities: PropTypes.array.isRequired,
   currentCity: PropTypes.string.isRequired,
   currentCityLocation: PropTypes.arrayOf(PropTypes.number).isRequired,
   hoverOfferId: PropTypes.number,
+  sortingOptions: PropTypes.arrayOf(PropTypes.string).isRequired,
   onClickCity: PropTypes.func.isRequired,
   onClickCardName: PropTypes.func.isRequired,
   onSelectSortByOptionIndex: PropTypes.func.isRequired,
@@ -102,13 +106,23 @@ Main.propTypes = {
   onMouseLeaveCard: PropTypes.func.isRequired,
 };
 
+const noSortedOffers = getOffers();
+const sortedOffers = getSortedOffers();
+const cities = getCities();
+const location = getCurrentCityLocation();
+const sortingOptions = [`Popular`, `Price: low to high`, `Price: high to low`, `Top rated first`];
+
 function mapStateToProps(state) {
+  const offers = noSortedOffers(state);
+
   return {
-    offers: getOffers(state),
+    offers,
+    sortedOffers: sortedOffers(offers, state),
     currentCity: state.city,
-    currentCityLocation: [getOffers(state)[0].city.location.latitude, getOffers(state)[0].city.location.longitude],
-    cities: getCities(state),
+    currentCityLocation: location(offers, state),
+    cities: cities(state),
     hoverOfferId: state.hoverOfferId,
+    sortingOptions,
   };
 }
 
@@ -124,30 +138,78 @@ function mapDispatchToProps(dispatch) {
 export {Main};
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
 
-function getCities(state) {
-  const cities = state.offers.map((offer) => offer.city);
-  let uniqCities = [];
+function getCities() {
+  let cacheCity = ``;
+  let cacheCities = [];
 
-  for (let city of cities) {
-    if (!uniqCities.includes(city.name)) {
-      uniqCities.push(city.name);
+  return function (state) {
+    if (!cacheCity.length || cacheCity !== state.city) {
+      const allCities = state.offers.map((offer) => offer.city);
+      let uniqCities = [];
+
+      for (let city of allCities) {
+        if (!uniqCities.includes(city.name)) {
+          uniqCities.push(city.name);
+        }
+      }
+
+      cacheCity = state.city;
+      cacheCities = uniqCities;
     }
-  }
 
-  return uniqCities;
+    return cacheCities;
+  };
 }
 
-function getOffers(state) {
-  const offers = state.offers.filter((offer) => (offer.city.name === state.city));
+function getOffers() {
+  let cacheOffers = [];
+  let cacheCity = ``;
 
-  switch (state.sortBySelectedOptionIndex) {
-    case 1:
-      return offers.sort((a, b) => b.price - a.price);
-    case 2:
-      return offers.sort((a, b) => a.price - b.price);
-    case 3:
-      return offers.sort((a, b) => b.rating - a.rating);
-  }
+  return function (state) {
+    if (!cacheOffers.length || cacheCity !== state.city) {
+      cacheOffers = state.offers.filter((offer) => (offer.city.name === state.city));
+      cacheCity = state.city;
+    }
 
-  return offers;
+    return cacheOffers;
+  };
+}
+
+function getSortedOffers() {
+  let cacheOffers;
+  let cacheSortedOffers = [];
+  let cacheIndex = null;
+
+  return function (offers, state) {
+    if (cacheOffers !== offers || !cacheSortedOffers.length || cacheIndex !== state.sortBySelectedOptionIndex) {
+      cacheOffers = offers;
+      cacheSortedOffers = [...offers];
+      cacheIndex = state.sortBySelectedOptionIndex;
+
+      switch (state.sortBySelectedOptionIndex) {
+        case 1:
+          return cacheSortedOffers.sort((a, b) => b.price - a.price);
+        case 2:
+          return cacheSortedOffers.sort((a, b) => a.price - b.price);
+        case 3:
+          return cacheSortedOffers.sort((a, b) => b.rating - a.rating);
+      }
+    }
+
+    return cacheSortedOffers;
+  };
+}
+
+function getCurrentCityLocation() {
+  let cacheLocation = [];
+  let cacheCity = ``;
+
+  return function (offers, state) {
+    if (!cacheLocation.length || cacheCity !== state.city) {
+      cacheLocation = [offers[0].city.location.latitude, offers[0].city.location.longitude];
+      cacheCity = state.city;
+    }
+
+    return cacheLocation;
+  };
 }
