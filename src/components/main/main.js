@@ -154,7 +154,7 @@ function getCities() {
       }
 
       cacheCity = state.city;
-      cacheCities = uniqCities;
+      cacheCities = uniqCities.slice(0, 6);
     }
 
     return cacheCities;

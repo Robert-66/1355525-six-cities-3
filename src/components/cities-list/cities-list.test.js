@@ -14,7 +14,6 @@ it(`Should CitiesList render correctly`, () => {
           cities={cities}
           onClickCity={() => {}}
           currentCity={`Amsterdam`}
-          maxCitiesCount={6}
         />
     )
     .toJSON();

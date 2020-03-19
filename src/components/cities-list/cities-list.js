@@ -17,15 +17,13 @@ class CitiesList extends React.PureComponent {
     const {
       cities,
       currentCity,
-      maxCitiesCount
     } = this.props;
-    const citiesResult = cities.slice(0, maxCitiesCount - 1);
 
     return (
       <div className="tabs">
         <section className="locations container">
           <ul className="locations__list tabs__list">
-            {citiesResult.map((city, index) => (
+            {cities.map((city, index) => (
               <li key={`${city}-${index}`} className="locations__item">
                 <a
                   className={`locations__item-link ${city === currentCity ? `tabs__item--active` : `tabs__item`}`}
@@ -46,7 +44,6 @@ class CitiesList extends React.PureComponent {
 CitiesList.propTypes = {
   cities: PropTypes.array.isRequired,
   currentCity: PropTypes.string.isRequired,
-  maxCitiesCount: PropTypes.number.isRequired,
   onClickCity: PropTypes.func.isRequired,
 };
 
