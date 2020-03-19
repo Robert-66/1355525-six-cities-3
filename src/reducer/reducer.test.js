@@ -1,5 +1,5 @@
 import {reducer, ActionCreators, ActionTypes} from './reducer.js';
-import {CityNames} from './const';
+import {CityNames} from '../const';
 
 const offers = [
   {

@@ -1,6 +1,6 @@
-import {extend} from './utils';
-import offers from './mocks/offers';
-import {CityNames} from './const';
+import {extend} from '../utils';
+import offers from '../mocks/offers';
+import {CityNames} from '../const';
 
 const initialState = {
   city: CityNames.PARIS,

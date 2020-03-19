@@ -1,7 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {ActionCreators} from '../../reducer';
+import {ActionCreators} from '../../reducer/reducer';
 import {MAX_CITIES_COUNT} from '../../const';
+import {getCities, getOffers, getSortedOffers, getCurrentCityLocation} from '../../reducer/selectors';
 import PlaceCardList from '../place-card-list/place-card-list';
 import Map from '../map/map';
 import CitiesList from '../cities-list/cities-list';
@@ -137,79 +138,3 @@ function mapDispatchToProps(dispatch) {
 
 export {Main};
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
-
-function getCities() {
-  let cacheCity = ``;
-  let cacheCities = [];
-
-  return function (state) {
-    if (!cacheCity.length || cacheCity !== state.city) {
-      const allCities = state.offers.map((offer) => offer.city);
-      let uniqCities = [];
-
-      for (let city of allCities) {
-        if (!uniqCities.includes(city.name)) {
-          uniqCities.push(city.name);
-        }
-      }
-
-      cacheCity = state.city;
-      cacheCities = uniqCities.slice(0, 6);
-    }
-
-    return cacheCities;
-  };
-}
-
-function getOffers() {
-  let cacheOffers = [];
-  let cacheCity = ``;
-
-  return function (state) {
-    if (!cacheOffers.length || cacheCity !== state.city) {
-      cacheOffers = state.offers.filter((offer) => (offer.city.name === state.city));
-      cacheCity = state.city;
-    }
-
-    return cacheOffers;
-  };
-}
-
-function getSortedOffers() {
-  let cacheOffers;
-  let cacheSortedOffers = [];
-  let cacheIndex = null;
-
-  return function (offers, state) {
-    if (cacheOffers !== offers || !cacheSortedOffers.length || cacheIndex !== state.sortBySelectedOptionIndex) {
-      cacheOffers = offers;
-      cacheSortedOffers = [...offers];
-      cacheIndex = state.sortBySelectedOptionIndex;
-
-      switch (state.sortBySelectedOptionIndex) {
-        case 1:
-          return cacheSortedOffers.sort((a, b) => b.price - a.price);
-        case 2:
-          return cacheSortedOffers.sort((a, b) => a.price - b.price);
-        case 3:
-          return cacheSortedOffers.sort((a, b) => b.rating - a.rating);
-      }
-    }
-
-    return cacheSortedOffers;
-  };
-}
-
-function getCurrentCityLocation() {
-  let cacheLocation = [];
-  let cacheCity = ``;
-
-  return function (offers, state) {
-    if (!cacheLocation.length || cacheCity !== state.city) {
-      cacheLocation = [offers[0].city.location.latitude, offers[0].city.location.longitude];
-      cacheCity = state.city;
-    }
-
-    return cacheLocation;
-  };
-}
