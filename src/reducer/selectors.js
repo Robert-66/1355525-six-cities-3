@@ -1,7 +1,8 @@
 import {createSelector} from 'reselect';
+import {extend} from '../utils';
 
-function getAllOffers(state) {
-  return state.data.offers.data;
+function getOffersState(state) {
+  return state.data.offers;
 }
 
 function getCity(state) {
@@ -41,23 +42,23 @@ function getUniqCities(offers) {
 }
 
 export const getOffers = createSelector(
-    getAllOffers,
+    getOffersState,
     getCity,
-    (offers, city) => offers.filter((offer) => (offer.city.name === city))
+    (offers, city) => extend(offers, {data: offers.data.filter((offer) => (offer.city.name === city))})
 );
 
 export const getSortedOffers = createSelector(
     getOffers,
     getSortBySelectedOptionIndex,
-    (offers, sortBySelectedOptionIndex) => getOffersSorted(offers, sortBySelectedOptionIndex)
+    (offers, sortBySelectedOptionIndex) => getOffersSorted(offers.data, sortBySelectedOptionIndex)
 );
 
 export const getCurrentCityLocation = createSelector(
     getOffers,
-    (offers) => [offers[0].city.location.latitude, offers[0].city.location.longitude]
+    (offers) => [offers.data[0].city.location.latitude, offers.data[0].city.location.longitude]
 );
 
 export const getCities = createSelector(
-    getAllOffers,
-    (offers) => getUniqCities(offers)
+    getOffersState,
+    (offers) => getUniqCities(offers.data)
 );

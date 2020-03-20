@@ -52,7 +52,7 @@ function Main(props) {
       </header>
 
       <main className="page__main page__main--index">
-        {offers.length > 0 && (
+        {offers.data.length > 0 && (
           <>
             <h1 className="visually-hidden">Cities</h1>
             <CitiesList
@@ -65,7 +65,7 @@ function Main(props) {
               <div className="cities__places-container container">
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{offers.length} places to stay in Amsterdam</b>
+                  <b className="places__found">{offers.data.length} places to stay in Amsterdam</b>
                   <form className="places__sorting" action="#" method="get">
                     <SortingOptions
                       options={sortingOptions}
@@ -83,7 +83,7 @@ function Main(props) {
                   <Map
                     className="cities__map"
                     city={currentCityLocation}
-                    offers={offers}
+                    offers={offers.data}
                     hoverOfferId={hoverOfferId}
                   />
                 </div>
@@ -91,13 +91,22 @@ function Main(props) {
             </div>
           </>
         )}
+        {offers.isError && (
+          <div className="container">
+            <h1>Что-то пошло не так :(</h1>
+          </div>
+        )}
       </main>
     </div>
   );
 }
 
 Main.propTypes = {
-  offers: PropTypes.arrayOf(offerType).isRequired,
+  offers: PropTypes.shape({
+    data: PropTypes.arrayOf(offerType).isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    isError: PropTypes.bool.isRequired,
+  }).isRequired,
   sortedOffers: PropTypes.arrayOf(offerType),
   cities: PropTypes.array,
   currentCity: PropTypes.string,
@@ -116,7 +125,7 @@ const sortingOptions = [`Popular`, `Price: low to high`, `Price: high to low`, `
 function mapStateToProps(state) {
   if (!state.data.offers.data.length) {
     return {
-      offers: state.data.offers.data,
+      offers: state.data.offers,
     };
   }
 
