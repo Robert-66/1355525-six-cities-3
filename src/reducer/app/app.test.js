@@ -1,5 +1,5 @@
-import {reducer, ActionCreators, ActionTypes} from './reducer.js';
-import {CityNames} from '../const';
+import {reducer, ActionCreators, ActionTypes} from './app.js';
+import {CityNames} from '../../const';
 
 const offers = [
   {
@@ -123,16 +123,6 @@ describe(`Reducer work correctly`, () => {
     });
   });
 
-  it(`Reducer should set offers by a given value`, () => {
-    expect(reducer({
-      city: CityNames.PARIS,
-      offers: [],
-    }, ActionCreators.setOffers(offers))).toEqual({
-      city: CityNames.PARIS,
-      offers,
-    });
-  });
-
   it(`Reducer should change city by a given value`, () => {
     expect(reducer({
       city: ``,
@@ -180,13 +170,6 @@ describe(`Action creators work correctly`, () => {
     expect(ActionCreators.changeCity(CityNames.PARIS)).toEqual({
       type: ActionTypes.CHANGE_CITY,
       payload: CityNames.PARIS
-    });
-  });
-
-  it(`Action creator for set offers returns correct action`, () => {
-    expect(ActionCreators.setOffers(offers)).toEqual({
-      type: ActionTypes.SET_OFFERS,
-      payload: offers
     });
   });
 

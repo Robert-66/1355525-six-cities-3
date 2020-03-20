@@ -3,8 +3,8 @@ export function getCities() {
   let cacheCities = [];
 
   return function (state) {
-    if (!cacheCity.length || cacheCity !== state.city) {
-      const allCities = state.offers.map((offer) => offer.city);
+    if (!cacheCity.length || cacheCity !== state.app.city) {
+      const allCities = state.data.offers.data.map((offer) => offer.city);
       let uniqCities = [];
 
       for (let city of allCities) {
@@ -13,7 +13,7 @@ export function getCities() {
         }
       }
 
-      cacheCity = state.city;
+      cacheCity = state.app.city;
       cacheCities = uniqCities.slice(0, 6);
     }
 
@@ -26,9 +26,9 @@ export function getOffers() {
   let cacheCity = ``;
 
   return function (state) {
-    if (!cacheOffers.length || cacheCity !== state.city) {
-      cacheOffers = state.offers.filter((offer) => (offer.city.name === state.city));
-      cacheCity = state.city;
+    if (!cacheOffers.length || cacheCity !== state.app.city) {
+      cacheOffers = state.data.offers.data.filter((offer) => (offer.city.name === state.app.city));
+      cacheCity = state.app.city;
     }
 
     return cacheOffers;
@@ -41,12 +41,12 @@ export function getSortedOffers() {
   let cacheIndex = null;
 
   return function (offers, state) {
-    if (cacheOffers !== offers || !cacheSortedOffers.length || cacheIndex !== state.sortBySelectedOptionIndex) {
+    if (cacheOffers !== offers || !cacheSortedOffers.length || cacheIndex !== state.app.sortBySelectedOptionIndex) {
       cacheOffers = offers;
       cacheSortedOffers = [...offers];
-      cacheIndex = state.sortBySelectedOptionIndex;
+      cacheIndex = state.app.sortBySelectedOptionIndex;
 
-      switch (state.sortBySelectedOptionIndex) {
+      switch (state.app.sortBySelectedOptionIndex) {
         case 1:
           return cacheSortedOffers.sort((a, b) => b.price - a.price);
         case 2:
@@ -65,9 +65,9 @@ export function getCurrentCityLocation() {
   let cacheCity = ``;
 
   return function (offers, state) {
-    if (!cacheLocation.length || cacheCity !== state.city) {
+    if (!cacheLocation.length || cacheCity !== state.app.city) {
       cacheLocation = [offers[0].city.location.latitude, offers[0].city.location.longitude];
-      cacheCity = state.city;
+      cacheCity = state.app.city;
     }
 
     return cacheLocation;

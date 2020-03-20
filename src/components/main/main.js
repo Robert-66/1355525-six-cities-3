@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {ActionCreators} from '../../reducer/reducer';
+import {ActionCreators} from '../../reducer/app/app';
 import {MAX_CITIES_COUNT} from '../../const';
 import {getCities, getOffers, getSortedOffers, getCurrentCityLocation} from '../../reducer/selectors';
 import PlaceCardList from '../place-card-list/place-card-list';
@@ -52,41 +52,45 @@ function Main(props) {
       </header>
 
       <main className="page__main page__main--index">
-        <h1 className="visually-hidden">Cities</h1>
-        <CitiesList
-          cities={cities}
-          currentCity={currentCity}
-          maxCitiesCount={MAX_CITIES_COUNT}
-          onClickCity={onClickCity}
-        />
-        <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
-              <form className="places__sorting" action="#" method="get">
-                <SortingOptions
-                  options={sortingOptions}
-                  onSelect={onSelectSortByOptionIndex}
-                />
-              </form>
-              <PlaceCardList
-                offers={sortedOffers}
-                onClickCardName={onClickCardName}
-                onMouseEnterCard={onMouseEnterCard}
-                onMouseLeaveCard={onMouseLeaveCard}
-              />
-            </section>
-            <div className="cities__right-section">
-              <Map
-                className="cities__map"
-                city={currentCityLocation}
-                offers={offers}
-                hoverOfferId={hoverOfferId}
-              />
+        {offers.length > 0 && (
+          <>
+            <h1 className="visually-hidden">Cities</h1>
+            <CitiesList
+              cities={cities}
+              currentCity={currentCity}
+              maxCitiesCount={MAX_CITIES_COUNT}
+              onClickCity={onClickCity}
+            />
+            <div className="cities">
+              <div className="cities__places-container container">
+                <section className="cities__places places">
+                  <h2 className="visually-hidden">Places</h2>
+                  <b className="places__found">{offers.length} places to stay in Amsterdam</b>
+                  <form className="places__sorting" action="#" method="get">
+                    <SortingOptions
+                      options={sortingOptions}
+                      onSelect={onSelectSortByOptionIndex}
+                    />
+                  </form>
+                  <PlaceCardList
+                    offers={sortedOffers}
+                    onClickCardName={onClickCardName}
+                    onMouseEnterCard={onMouseEnterCard}
+                    onMouseLeaveCard={onMouseLeaveCard}
+                  />
+                </section>
+                <div className="cities__right-section">
+                  <Map
+                    className="cities__map"
+                    city={currentCityLocation}
+                    offers={offers}
+                    hoverOfferId={hoverOfferId}
+                  />
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          </>
+        )}
       </main>
     </div>
   );
@@ -94,12 +98,12 @@ function Main(props) {
 
 Main.propTypes = {
   offers: PropTypes.arrayOf(offerType).isRequired,
-  sortedOffers: PropTypes.arrayOf(offerType).isRequired,
-  cities: PropTypes.array.isRequired,
-  currentCity: PropTypes.string.isRequired,
-  currentCityLocation: PropTypes.arrayOf(PropTypes.number).isRequired,
+  sortedOffers: PropTypes.arrayOf(offerType),
+  cities: PropTypes.array,
+  currentCity: PropTypes.string,
+  currentCityLocation: PropTypes.arrayOf(PropTypes.number),
   hoverOfferId: PropTypes.number,
-  sortingOptions: PropTypes.arrayOf(PropTypes.string).isRequired,
+  sortingOptions: PropTypes.arrayOf(PropTypes.string),
   onClickCity: PropTypes.func.isRequired,
   onClickCardName: PropTypes.func.isRequired,
   onSelectSortByOptionIndex: PropTypes.func.isRequired,
@@ -114,15 +118,21 @@ const location = getCurrentCityLocation();
 const sortingOptions = [`Popular`, `Price: low to high`, `Price: high to low`, `Top rated first`];
 
 function mapStateToProps(state) {
+  if (!state.data.offers.data.length) {
+    return {
+      offers: state.data.offers.data,
+    };
+  }
+
   const offers = noSortedOffers(state);
 
   return {
     offers,
     sortedOffers: sortedOffers(offers, state),
-    currentCity: state.city,
+    currentCity: state.app.city,
     currentCityLocation: location(offers, state),
     cities: cities(state),
-    hoverOfferId: state.hoverOfferId,
+    hoverOfferId: state.app.hoverOfferId,
     sortingOptions,
   };
 }

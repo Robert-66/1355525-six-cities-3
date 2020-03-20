@@ -1,59 +1,10 @@
-import {extend} from '../utils';
-import offers from '../mocks/offers';
-import {CityNames} from '../const';
+import {combineReducers} from 'redux';
+import {reducer as offers} from './data/offers/offers';
+import {reducer as app} from './app/app';
 
-const initialState = {
-  city: CityNames.PARIS,
-  offers,
-  sortBySelectedOptionIndex: 0,
-  hoverOfferId: null,
-};
-
-const ActionTypes = {
-  CHANGE_CITY: `CHANGE_CITY`,
-  SET_OFFERS: `SET_OFFERS`,
-  SET_SORT_BY_SELECTED_OPTION_INDEX: `SET_SORT_BY_SELECTED_OPTION_INDEX`,
-  SET_HOVER_OFFER_ID: `SET_HOVER_OFFER_ID`,
-  RESET_HOVER_OFFER_ID: `RESET_HOVER_OFFER_ID`,
-};
-
-const ActionCreators = {
-  changeCity: (city) => ({
-    type: ActionTypes.CHANGE_CITY,
-    payload: city,
+export default combineReducers({
+  data: combineReducers({
+    offers,
   }),
-  setOffers: (data) => ({
-    type: ActionTypes.SET_OFFERS,
-    payload: data,
-  }),
-  setSortBySelectedOptionIndex: (index) => ({
-    type: ActionTypes.SET_SORT_BY_SELECTED_OPTION_INDEX,
-    payload: index,
-  }),
-  setHoverOfferId: (id) => ({
-    type: ActionTypes.SET_HOVER_OFFER_ID,
-    payload: id,
-  }),
-  resetHoverOfferId: () => ({
-    type: ActionTypes.RESET_HOVER_OFFER_ID,
-  })
-};
-
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case ActionTypes.CHANGE_CITY:
-      return extend(state, {city: action.payload});
-    case ActionTypes.SET_OFFERS:
-      return extend(state, {offers: action.payload});
-    case ActionTypes.SET_SORT_BY_SELECTED_OPTION_INDEX:
-      return extend(state, {sortBySelectedOptionIndex: action.payload});
-    case ActionTypes.SET_HOVER_OFFER_ID:
-      return extend(state, {hoverOfferId: action.payload});
-    case ActionTypes.RESET_HOVER_OFFER_ID:
-      return extend(state, {hoverOfferId: null});
-  }
-
-  return state;
-};
-
-export {ActionCreators, ActionTypes, reducer};
+  app,
+});
