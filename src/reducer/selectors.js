@@ -1,75 +1,63 @@
-export function getCities() {
-  let cacheCity = ``;
-  let cacheCities = [];
+import {createSelector} from 'reselect';
 
-  return function (state) {
-    if (!cacheCity.length || cacheCity !== state.app.city) {
-      const allCities = state.data.offers.data.map((offer) => offer.city);
-      let uniqCities = [];
-
-      for (let city of allCities) {
-        if (!uniqCities.includes(city.name)) {
-          uniqCities.push(city.name);
-        }
-      }
-
-      cacheCity = state.app.city;
-      cacheCities = uniqCities.slice(0, 6);
-    }
-
-    return cacheCities;
-  };
+function getAllOffers(state) {
+  return state.data.offers.data;
 }
 
-export function getOffers() {
-  let cacheOffers = [];
-  let cacheCity = ``;
-
-  return function (state) {
-    if (!cacheOffers.length || cacheCity !== state.app.city) {
-      cacheOffers = state.data.offers.data.filter((offer) => (offer.city.name === state.app.city));
-      cacheCity = state.app.city;
-    }
-
-    return cacheOffers;
-  };
+function getCity(state) {
+  return state.app.city;
 }
 
-export function getSortedOffers() {
-  let cacheOffers;
-  let cacheSortedOffers = [];
-  let cacheIndex = null;
-
-  return function (offers, state) {
-    if (cacheOffers !== offers || !cacheSortedOffers.length || cacheIndex !== state.app.sortBySelectedOptionIndex) {
-      cacheOffers = offers;
-      cacheSortedOffers = [...offers];
-      cacheIndex = state.app.sortBySelectedOptionIndex;
-
-      switch (state.app.sortBySelectedOptionIndex) {
-        case 1:
-          return cacheSortedOffers.sort((a, b) => b.price - a.price);
-        case 2:
-          return cacheSortedOffers.sort((a, b) => a.price - b.price);
-        case 3:
-          return cacheSortedOffers.sort((a, b) => b.rating - a.rating);
-      }
-    }
-
-    return cacheSortedOffers;
-  };
+function getSortBySelectedOptionIndex(state) {
+  return state.app.sortBySelectedOptionIndex;
 }
 
-export function getCurrentCityLocation() {
-  let cacheLocation = [];
-  let cacheCity = ``;
+function getOffersSorted(offers, sortBySelectedOptionIndex) {
+  const copyOffers = [...offers];
 
-  return function (offers, state) {
-    if (!cacheLocation.length || cacheCity !== state.app.city) {
-      cacheLocation = [offers[0].city.location.latitude, offers[0].city.location.longitude];
-      cacheCity = state.app.city;
-    }
+  switch (sortBySelectedOptionIndex) {
+    case 1:
+      return copyOffers.sort((a, b) => b.price - a.price);
+    case 2:
+      return copyOffers.sort((a, b) => a.price - b.price);
+    case 3:
+      return copyOffers.sort((a, b) => b.rating - a.rating);
+  }
 
-    return cacheLocation;
-  };
+  return offers;
 }
+
+function getUniqCities(offers) {
+  const allCities = offers.map((offer) => offer.city);
+  let uniqCities = [];
+
+  for (let city of allCities) {
+    if (!uniqCities.includes(city.name)) {
+      uniqCities.push(city.name);
+    }
+  }
+
+  return uniqCities.slice(0, 6);
+}
+
+export const getOffers = createSelector(
+    getAllOffers,
+    getCity,
+    (offers, city) => offers.filter((offer) => (offer.city.name === city))
+);
+
+export const getSortedOffers = createSelector(
+    getOffers,
+    getSortBySelectedOptionIndex,
+    (offers, sortBySelectedOptionIndex) => getOffersSorted(offers, sortBySelectedOptionIndex)
+);
+
+export const getCurrentCityLocation = createSelector(
+    getOffers,
+    (offers) => [offers[0].city.location.latitude, offers[0].city.location.longitude]
+);
+
+export const getCities = createSelector(
+    getAllOffers,
+    (offers) => getUniqCities(offers)
+);

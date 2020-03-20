@@ -111,10 +111,6 @@ Main.propTypes = {
   onMouseLeaveCard: PropTypes.func.isRequired,
 };
 
-const noSortedOffers = getOffers();
-const sortedOffers = getSortedOffers();
-const cities = getCities();
-const location = getCurrentCityLocation();
 const sortingOptions = [`Popular`, `Price: low to high`, `Price: high to low`, `Top rated first`];
 
 function mapStateToProps(state) {
@@ -124,14 +120,12 @@ function mapStateToProps(state) {
     };
   }
 
-  const offers = noSortedOffers(state);
-
   return {
-    offers,
-    sortedOffers: sortedOffers(offers, state),
+    offers: getOffers(state),
+    sortedOffers: getSortedOffers(state),
     currentCity: state.app.city,
-    currentCityLocation: location(offers, state),
-    cities: cities(state),
+    currentCityLocation: getCurrentCityLocation(state),
+    cities: getCities(state),
     hoverOfferId: state.app.hoverOfferId,
     sortingOptions,
   };
