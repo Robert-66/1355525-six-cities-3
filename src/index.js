@@ -5,12 +5,12 @@ import thunk from 'redux-thunk';
 import {createAPI} from './api.js';
 import reducer from './reducer/reducer';
 import {Operation as OffersOperation} from './reducer/data/offers/offers.js';
-import {Operation as UserOperation, ActionCreator, AuthorizationStatus} from './reducer/user/user';
+import {Operation as UserOperation, ActionCreator} from './reducer/user/user';
 import {Provider} from 'react-redux';
 import App from './components/app/app';
 
 function onUnauthorized() {
-  store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
+  store.dispatch(ActionCreator.noAuth());
 }
 
 const api = createAPI(onUnauthorized);

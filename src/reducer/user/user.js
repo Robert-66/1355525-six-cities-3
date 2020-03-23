@@ -7,25 +7,34 @@ const AuthorizationStatus = {
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
+  email: ``,
 };
 
 const ActionType = {
-  REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`,
 };
 
 const ActionCreator = {
-  requireAuthorization: (status) => {
+  auth: (authInfo) => {
     return {
-      type: ActionType.REQUIRED_AUTHORIZATION,
-      payload: status,
+      type: ActionType.AUTH,
+      payload: authInfo,
+    };
+  },
+  noAuth: () => {
+    return {
+      type: ActionType.NO_AUTH,
     };
   },
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.REQUIRED_AUTHORIZATION:
-      return extend(state, {authorizationStatus: action.payload});
+    case ActionType.AUTH:
+      return extend(state, {authorizationStatus: AuthorizationStatus.AUTH, email: action.payload.email});
+    case ActionType.NO_AUTH:
+      return initialState;
   }
 
   return state;
@@ -34,8 +43,8 @@ const reducer = (state = initialState, action) => {
 const Operation = {
   checkAuth: () => (dispatch, getState, api) => {
     return api.get(`/login`)
-      .then(() => {
-        dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+      .then((res) => {
+        dispatch(ActionCreator.auth(res.data));
       });
   },
   login: (authData) => (dispatch, getState, api) => {
@@ -43,8 +52,8 @@ const Operation = {
       email: authData.email,
       password: authData.password,
     })
-      .then(() => {
-        dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+      .then((res) => {
+        dispatch(ActionCreator.auth(res.data));
       });
   },
 };
