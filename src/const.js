@@ -11,3 +11,10 @@ export const CityNames = {
 };
 
 export const MAX_CITIES_COUNT = 6;
+
+export const AppRoute = {
+  ROOT: `/`,
+  LOGIN: `/login`,
+  ROOM: `/offer`,
+  FAVORITES: `/favorites`,
+};

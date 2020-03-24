@@ -4,6 +4,7 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import App from './app';
 import {CityNames} from '../../const';
+import {AuthorizationStatus} from '../../reducer/user/user';
 
 const mockStore = configureStore([]);
 
@@ -129,6 +130,10 @@ it(`Should App render correctly`, () => {
     },
     app: {
       city: `Amsterdam`,
+    },
+    user: {
+      authorizationStatus: AuthorizationStatus.NO_AUTH,
+      email: ``,
     }
   });
 
