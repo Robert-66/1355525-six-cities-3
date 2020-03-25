@@ -1,4 +1,6 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const';
 import PropTypes from 'prop-types';
 import {offerType} from '../../types/offers-types';
 
@@ -10,6 +12,7 @@ function PlaceCard(props) {
     onMouseLeaveCard
   } = props;
   const {
+    id,
     name,
     price,
     previewImage,
@@ -53,7 +56,7 @@ function PlaceCard(props) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#" onClick={onClickCardName}>{name}</a>
+          <Link to={`${AppRoute.ROOM}/${id}`} onClick={onClickCardName}>{name}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
