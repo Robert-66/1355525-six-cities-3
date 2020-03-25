@@ -1,5 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import {BrowserRouter} from 'react-router-dom';
 import PlaceCardList from './place-card-list';
 import {CityNames} from '../../const';
 
@@ -115,14 +116,18 @@ const offers = [
 ];
 
 it(`PlaceCardList is rendered correctly`, () => {
-  const placeCardList = renderer.create(
-      <PlaceCardList
-        offers={offers}
-        onClickCardName={() => {}}
-        onMouseEnterCard={() => {}}
-        onMouseLeaveCard={() => {}}
-      />
-  ).toJSON();
+  const placeCardList = renderer
+    .create(
+        <BrowserRouter>
+          <PlaceCardList
+            offers={offers}
+            onClickCardName={() => {}}
+            onMouseEnterCard={() => {}}
+            onMouseLeaveCard={() => {}}
+          />
+        </BrowserRouter>
+    )
+    .toJSON();
 
   expect(placeCardList).toMatchSnapshot();
 });

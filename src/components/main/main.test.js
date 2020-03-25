@@ -1,5 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import {BrowserRouter} from 'react-router-dom';
 import {Main} from './main';
 import {CityNames} from '../../const';
 
@@ -128,19 +129,21 @@ const sortingOptions = [`Popular`, `Price: low to high`, `Price: high to low`, `
 it(`Should Main render correctly`, () => {
   const tree = renderer
     .create(
-        <Main
-          offers={offers}
-          sortedOffers={offers.data}
-          cities={cities}
-          currentCity="Paris"
-          currentCityLocation={[48.877610000000004, 2.333499]}
-          sortingOptions={sortingOptions}
-          onSelectSortByOptionIndex={() => {}}
-          onClickCity={() => {}}
-          onClickCardName={() => {}}
-          onMouseEnterCard={() => {}}
-          onMouseLeaveCard={() => {}}
-        />,
+        <BrowserRouter>
+          <Main
+            offers={offers}
+            sortedOffers={offers.data}
+            cities={cities}
+            currentCity="Paris"
+            currentCityLocation={[48.877610000000004, 2.333499]}
+            sortingOptions={sortingOptions}
+            onSelectSortByOptionIndex={() => {}}
+            onClickCity={() => {}}
+            onClickCardName={() => {}}
+            onMouseEnterCard={() => {}}
+            onMouseLeaveCard={() => {}}
+          />
+        </BrowserRouter>,
         {
           createNodeMock: () => {
             return document.createElement(`section`);

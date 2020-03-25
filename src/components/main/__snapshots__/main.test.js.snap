@@ -212,7 +212,8 @@ exports[`Should Main render correctly 1`] = `
                 className="place-card__name"
               >
                 <a
-                  href="#"
+                  className="place-card__name-link"
+                  href="/offer/11"
                   onClick={[Function]}
                 >
                   Apartments Prinsengracht
@@ -318,7 +319,8 @@ exports[`Should Main render correctly 1`] = `
                 className="place-card__name"
               >
                 <a
-                  href="#"
+                  className="place-card__name-link"
+                  href="/offer/21"
                   onClick={[Function]}
                 >
                   Lovely Studio With Canal Views
@@ -424,7 +426,8 @@ exports[`Should Main render correctly 1`] = `
                 className="place-card__name"
               >
                 <a
-                  href="#"
+                  className="place-card__name-link"
+                  href="/offer/31"
                   onClick={[Function]}
                 >
                   Zandberg - Canal view apartments
@@ -523,7 +526,8 @@ exports[`Should Main render correctly 1`] = `
                 className="place-card__name"
               >
                 <a
-                  href="#"
+                  className="place-card__name-link"
+                  href="/offer/41"
                   onClick={[Function]}
                 >
                   Bright & new apartment with canal view
@@ -629,7 +633,8 @@ exports[`Should Main render correctly 1`] = `
                 className="place-card__name"
               >
                 <a
-                  href="#"
+                  className="place-card__name-link"
+                  href="/offer/51"
                   onClick={[Function]}
                 >
                   Tile House
@@ -728,7 +733,8 @@ exports[`Should Main render correctly 1`] = `
                 className="place-card__name"
               >
                 <a
-                  href="#"
+                  className="place-card__name-link"
+                  href="/offer/61"
                   onClick={[Function]}
                 >
                   Waterfront with extraordinary view

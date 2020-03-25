@@ -56,7 +56,7 @@ function PlaceCard(props) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.ROOM}/${id}`} onClick={onClickCardName}>{name}</Link>
+          <Link className="place-card__name-link" to={`${AppRoute.ROOM}/${id}`} onClick={onClickCardName}>{name}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

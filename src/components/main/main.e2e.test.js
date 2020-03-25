@@ -1,6 +1,7 @@
 import React from 'react';
 import Enzyme, {mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import {BrowserRouter} from "react-router-dom";
 import {Main} from './main';
 import {CityNames} from '../../const';
 
@@ -133,19 +134,21 @@ const sortingOptions = [`Popular`, `Price: low to high`, `Price: high to low`, `
 it(`Should offer name be pressed`, () => {
   const handleCardNameClick = jest.fn();
   const main = mount(
-      <Main
-        offers={offers}
-        sortedOffers={offers.data}
-        cities={cities}
-        currentCity="Paris"
-        currentCityLocation={[48.877610000000004, 2.333499]}
-        sortingOptions={sortingOptions}
-        onSelectSortByOptionIndex={() => {}}
-        onClickCity={() => {}}
-        onClickCardName={handleCardNameClick}
-        onMouseEnterCard={() => {}}
-        onMouseLeaveCard={() => {}}
-      />
+      <BrowserRouter>
+        <Main
+          offers={offers}
+          sortedOffers={offers.data}
+          cities={cities}
+          currentCity="Paris"
+          currentCityLocation={[48.877610000000004, 2.333499]}
+          sortingOptions={sortingOptions}
+          onSelectSortByOptionIndex={() => {}}
+          onClickCity={() => {}}
+          onClickCardName={handleCardNameClick}
+          onMouseEnterCard={() => {}}
+          onMouseLeaveCard={() => {}}
+        />
+      </BrowserRouter>
   );
   const cardName = main.find(`.place-card__name a`).first();
 
