@@ -68,7 +68,7 @@ describe(`PlaceCard callbacks`, () => {
       onMouseEnterCard={() => {}}
       onMouseLeaveCard={() => {}}
     />);
-    const cardName = placeCard.find(`.place-card__name a`);
+    const cardName = placeCard.find(`.place-card__name-link`);
 
     cardName.simulate(`click`);
 

@@ -15,6 +15,12 @@ const offers = [
         zoom: 13
       }
     },
+    description: `description`,
+    bedrooms: 2,
+    maxAdults: 3,
+    goods: [`Air conditioning`, `Washer`, `Dishwasher`],
+    images: [`img/image1.jpg`, `img/image2.jpg`],
+    isFavorite: false,
     previewImage: `img/apartment-01.jpg`,
     isPremium: false,
     type: `apartment`,
@@ -23,6 +29,11 @@ const offers = [
     price: 120,
     coords: [52.3909553943508, 4.85309666406198],
     rating: 4.3,
+    host: {
+      name: `Angelina`,
+      isPro: true,
+      avatarUrl: `img/avatar-angelina.jpg`,
+    },
   },
 ];
 
@@ -37,6 +48,12 @@ const serverOffers = [
         zoom: 13
       }
     },
+    description: `description`,
+    bedrooms: 2,
+    max_adults: 3,
+    goods: [`Air conditioning`, `Washer`, `Dishwasher`],
+    images: [`img/image1.jpg`, `img/image2.jpg`],
+    is_favorite: false,
     preview_image: `img/apartment-01.jpg`,
     is_premium: false,
     rating: 4.3,
@@ -48,7 +65,12 @@ const serverOffers = [
       longitude: 4.85309666406198,
       zoom: 16
     },
-    id: 11
+    id: 11,
+    host: {
+      name: `Angelina`,
+      is_pro: true,
+      avatar_url: `img/avatar-angelina.jpg`,
+    },
   }
 ];
 

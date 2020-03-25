@@ -4,7 +4,7 @@ import {AppRoute} from '../../const';
 import Page from '../page/page';
 import Main from '../main/main';
 import SignIn from '../sign-in/sign-in';
-
+import PlaceCardDetail from '../place-card-detail/place-card-detail';
 
 function handleCardNameClick() {
   return {};
@@ -26,6 +26,12 @@ function App() {
             <SignIn />
           </Page>
         </Route>
+        <Route exact path={`${AppRoute.ROOM}/:id`} render={(routeProps) => (
+          <Page>
+            <PlaceCardDetail {...routeProps} />
+          </Page>
+        )}
+        />
       </Switch>
     </BrowserRouter>
 

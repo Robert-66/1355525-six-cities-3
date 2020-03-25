@@ -17,10 +17,14 @@ export function adapterApi(data) {
       description: offer.description,
       images: offer.images,
       bedrooms: offer.bedrooms,
-      maxAdults: offer.maxAdults,
+      maxAdults: offer.max_adults,
       isFavorite: offer.is_favorite,
       goods: offer.goods,
-      host: offer.host,
+      host: {
+        name: offer.host.name,
+        isPro: offer.host.is_pro,
+        avatarUrl: offer.host.avatar_url,
+      },
     };
   });
 }

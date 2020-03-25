@@ -268,7 +268,8 @@ exports[`Should App render correctly 1`] = `
                   className="place-card__name"
                 >
                   <a
-                    href="#"
+                    className="place-card__name-link"
+                    href="/offer/11"
                     onClick={[Function]}
                   >
                     Apartments Prinsengracht
@@ -374,7 +375,8 @@ exports[`Should App render correctly 1`] = `
                   className="place-card__name"
                 >
                   <a
-                    href="#"
+                    className="place-card__name-link"
+                    href="/offer/21"
                     onClick={[Function]}
                   >
                     Lovely Studio With Canal Views
@@ -480,7 +482,8 @@ exports[`Should App render correctly 1`] = `
                   className="place-card__name"
                 >
                   <a
-                    href="#"
+                    className="place-card__name-link"
+                    href="/offer/31"
                     onClick={[Function]}
                   >
                     Zandberg - Canal view apartments
@@ -579,7 +582,8 @@ exports[`Should App render correctly 1`] = `
                   className="place-card__name"
                 >
                   <a
-                    href="#"
+                    className="place-card__name-link"
+                    href="/offer/41"
                     onClick={[Function]}
                   >
                     Bright & new apartment with canal view
