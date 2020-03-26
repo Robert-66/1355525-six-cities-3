@@ -2,15 +2,15 @@
 
 exports[`PlaceCardList is rendered correctly 1`] = `
 <div
-  className="cities__places-list places__list tabs__content"
+  className="places__list"
 >
   <article
-    className="cities__place-card place-card"
+    className="place-card"
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
     <div
-      className="cities__image-wrapper place-card__image-wrapper"
+      className="place-card__image-wrapper"
     >
       <a
         href="#"
@@ -100,12 +100,13 @@ exports[`PlaceCardList is rendered correctly 1`] = `
       <p
         className="place-card__type"
       >
-        apartment
+         
+        Apartment
       </p>
     </div>
   </article>
   <article
-    className="cities__place-card place-card"
+    className="place-card"
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
@@ -117,7 +118,7 @@ exports[`PlaceCardList is rendered correctly 1`] = `
       </span>
     </div>
     <div
-      className="cities__image-wrapper place-card__image-wrapper"
+      className="place-card__image-wrapper"
     >
       <a
         href="#"
@@ -207,12 +208,13 @@ exports[`PlaceCardList is rendered correctly 1`] = `
       <p
         className="place-card__type"
       >
-        apartment
+         
+        Apartment
       </p>
     </div>
   </article>
   <article
-    className="cities__place-card place-card"
+    className="place-card"
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
@@ -224,7 +226,7 @@ exports[`PlaceCardList is rendered correctly 1`] = `
       </span>
     </div>
     <div
-      className="cities__image-wrapper place-card__image-wrapper"
+      className="place-card__image-wrapper"
     >
       <a
         href="#"
@@ -314,17 +316,18 @@ exports[`PlaceCardList is rendered correctly 1`] = `
       <p
         className="place-card__type"
       >
-        apartment
+         
+        Apartment
       </p>
     </div>
   </article>
   <article
-    className="cities__place-card place-card"
+    className="place-card"
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
     <div
-      className="cities__image-wrapper place-card__image-wrapper"
+      className="place-card__image-wrapper"
     >
       <a
         href="#"
@@ -414,12 +417,13 @@ exports[`PlaceCardList is rendered correctly 1`] = `
       <p
         className="place-card__type"
       >
-        room
+         
+        Private Room
       </p>
     </div>
   </article>
   <article
-    className="cities__place-card place-card"
+    className="place-card"
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
@@ -431,7 +435,7 @@ exports[`PlaceCardList is rendered correctly 1`] = `
       </span>
     </div>
     <div
-      className="cities__image-wrapper place-card__image-wrapper"
+      className="place-card__image-wrapper"
     >
       <a
         href="#"
@@ -521,17 +525,18 @@ exports[`PlaceCardList is rendered correctly 1`] = `
       <p
         className="place-card__type"
       >
-        room
+         
+        Private Room
       </p>
     </div>
   </article>
   <article
-    className="cities__place-card place-card"
+    className="place-card"
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
     <div
-      className="cities__image-wrapper place-card__image-wrapper"
+      className="place-card__image-wrapper"
     >
       <a
         href="#"
@@ -621,7 +626,8 @@ exports[`PlaceCardList is rendered correctly 1`] = `
       <p
         className="place-card__type"
       >
-        apartment
+         
+        Apartment
       </p>
     </div>
   </article>

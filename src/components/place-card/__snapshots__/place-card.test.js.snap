@@ -2,12 +2,12 @@
 
 exports[`PlaceCard is rendered correctly 1`] = `
 <article
-  className="cities__place-card place-card"
+  className="place-card"
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
 >
   <div
-    className="cities__image-wrapper place-card__image-wrapper"
+    className="place-card__image-wrapper"
   >
     <a
       href="#"
@@ -97,7 +97,8 @@ exports[`PlaceCard is rendered correctly 1`] = `
     <p
       className="place-card__type"
     >
-      apartment
+       
+      Apartment
     </p>
   </div>
 </article>
