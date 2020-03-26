@@ -5,7 +5,8 @@ import {extend} from '../../utils';
 import PropTypes from 'prop-types';
 import Reviews from '../reviews/reviews';
 import Map from '../map/map';
-import reviews from '../../mocks/reviews';
+import mockReviews from '../../mocks/reviews';
+import {reviewType} from '../../types/reviews-types';
 import {offerType} from '../../types/offers-types';
 import PlaceCardList from '../place-card-list/place-card-list';
 
@@ -14,7 +15,8 @@ function PlaceCardDetail(props) {
     offer,
     offersNearby,
     offersNearbyMap,
-    currentCityLocation
+    currentCityLocation,
+    reviews,
   } = props;
   const {
     images,
@@ -174,6 +176,7 @@ PlaceCardDetail.propTypes = {
   offersNearby: PropTypes.arrayOf(offerType).isRequired,
   offersNearbyMap: PropTypes.arrayOf(offerType).isRequired,
   currentCityLocation: PropTypes.arrayOf(PropTypes.number),
+  reviews: PropTypes.arrayOf(reviewType).isRequired,
 };
 
 function mapStateToProps(state, props) {
@@ -191,11 +194,16 @@ function mapStateToProps(state, props) {
     offersNearbyMap.push(offer.data);
   }
 
+  const reviews = mockReviews
+      .slice(0, 10)
+      .sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
+
   return {
     offer,
     offersNearby,
     offersNearbyMap,
     currentCityLocation: getCurrentCityLocation(state),
+    reviews
   };
 }
 
