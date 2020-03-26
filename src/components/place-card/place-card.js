@@ -7,6 +7,8 @@ import {offerType} from '../../types/offers-types';
 function PlaceCard(props) {
   const {
     offer,
+    className,
+    classNameImageWrapper,
     onClickCardName,
     onMouseEnterCard,
     onMouseLeaveCard
@@ -23,7 +25,7 @@ function PlaceCard(props) {
 
   return (
     <article
-      className="cities__place-card place-card"
+      className={`place-card${className ? ` ` + className : ``}`}
       onMouseEnter={() => onMouseEnterCard(offer.id)}
       onMouseLeave={() => onMouseLeaveCard()}
     >
@@ -32,7 +34,7 @@ function PlaceCard(props) {
           <span>Premium</span>
         </div>
       )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`place-card__image-wrapper${classNameImageWrapper ? ` ` + classNameImageWrapper : ``}`}>
         <a href="#">
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
         </a>
@@ -58,7 +60,7 @@ function PlaceCard(props) {
         <h2 className="place-card__name">
           <Link className="place-card__name-link" to={`${AppRoute.ROOM}/${id}`} onClick={onClickCardName}>{name}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type"> {type === `room` ? `Private Room` : type[0].toUpperCase() + type.slice(1)}</p>
       </div>
     </article>
   );
@@ -66,9 +68,11 @@ function PlaceCard(props) {
 
 PlaceCard.propTypes = {
   offer: offerType,
-  onClickCardName: PropTypes.func.isRequired,
-  onMouseEnterCard: PropTypes.func.isRequired,
-  onMouseLeaveCard: PropTypes.func.isRequired,
+  className: PropTypes.string,
+  classNameImageWrapper: PropTypes.string,
+  onClickCardName: PropTypes.func,
+  onMouseEnterCard: PropTypes.func,
+  onMouseLeaveCard: PropTypes.func,
 };
 
 export default PlaceCard;
