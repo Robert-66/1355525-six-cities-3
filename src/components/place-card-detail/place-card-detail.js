@@ -1,13 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getOffers} from '../../reducer/selectors';
+import {getCurrentCityLocation, getOffers} from '../../reducer/selectors';
 import {extend} from '../../utils';
 import PropTypes from 'prop-types';
 import Reviews from '../reviews/reviews';
+import Map from '../map/map';
 import reviews from '../../mocks/reviews';
+import {offerType} from '../../types/offers-types';
 
 function PlaceCardDetail(props) {
-  const {offer} = props;
+  const {offer, offersNearby, currentCityLocation} = props;
   const {
     images,
     name,
@@ -20,6 +22,7 @@ function PlaceCardDetail(props) {
     rating,
     goods,
     host,
+    id,
   } = offer.data;
   return (
     <main className="page__main page__main--property">
@@ -107,7 +110,7 @@ function PlaceCardDetail(props) {
                 <Reviews reviews={reviews} className="property__reviews" />
               </div>
             </div>
-            <section className="property__map map" />
+            <Map className="property__map" offers={offersNearby} city={currentCityLocation} hoverOfferId={id} />
           </section>
           <div className="container">
             <section className="near-places places">
@@ -248,19 +251,32 @@ PlaceCardDetail.propTypes = {
         isPro: PropTypes.bool.isRequired,
         avatarUrl: PropTypes.string.isRequired,
       }),
+      id: PropTypes.number.isRequired,
     }).isRequired,
     isLoading: PropTypes.bool.isRequired,
     isError: PropTypes.bool.isRequired,
   }).isRequired,
+  offersNearby: PropTypes.arrayOf(offerType).isRequired,
+  currentCityLocation: PropTypes.arrayOf(PropTypes.number),
 };
 
 function mapStateToProps(state, props) {
   let offer = extend({}, getOffers(state));
   const data = offer.data.find((item) => item.id === Number(props.match.params.id));
   offer.data = data ? data : {};
+  let offersNearby = [];
+
+  if (Object.keys(offer.data).length) {
+    offersNearby = getOffers(state).data
+      .filter((item) => item.city.name === offer.data.city.name && item.id !== offer.data.id)
+      .slice(0, 3);
+    offersNearby.push(offer.data);
+  }
 
   return {
     offer,
+    offersNearby,
+    currentCityLocation: getCurrentCityLocation(state),
   };
 }
 
