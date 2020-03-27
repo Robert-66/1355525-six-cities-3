@@ -11,17 +11,22 @@ class PlaceCardList extends React.PureComponent {
   render() {
     const {
       offers,
+      className,
+      classNamePlaceCard,
+      classNamePlaceCardImageWrapper,
       onClickCardName,
       onMouseEnterCard,
       onMouseLeaveCard,
     } = this.props;
 
     return (
-      <div className="cities__places-list places__list tabs__content">
+      <div className={`places__list${className ? ` ` + className : ``}`}>
         {offers.map((offer) => (
           <PlaceCard
             key={offer.id}
             offer={offer}
+            className={classNamePlaceCard}
+            classNameImageWrapper={classNamePlaceCardImageWrapper}
             onClickCardName={onClickCardName}
             onMouseEnterCard={onMouseEnterCard}
             onMouseLeaveCard={onMouseLeaveCard}
@@ -33,10 +38,21 @@ class PlaceCardList extends React.PureComponent {
 }
 
 PlaceCardList.propTypes = {
+  className: PropTypes.string,
+  classNamePlaceCard: PropTypes.string,
+  classNamePlaceCardImageWrapper: PropTypes.string,
   offers: PropTypes.arrayOf(offerType).isRequired,
-  onClickCardName: PropTypes.func.isRequired,
-  onMouseEnterCard: PropTypes.func.isRequired,
-  onMouseLeaveCard: PropTypes.func.isRequired,
+  onClickCardName: PropTypes.func,
+  onMouseEnterCard: PropTypes.func,
+  onMouseLeaveCard: PropTypes.func,
+};
+
+PlaceCardList.defaultProps = {
+  classNamePlaceCard: ``,
+  classNamePlaceCardImageWrapper: ``,
+  onClickCardName: () => {},
+  onMouseEnterCard: () => {},
+  onMouseLeaveCard: () => {},
 };
 
 export default PlaceCardList;

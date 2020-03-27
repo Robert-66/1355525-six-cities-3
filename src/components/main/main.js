@@ -50,6 +50,9 @@ function Main(props) {
                 </form>
                 <PlaceCardList
                   offers={sortedOffers}
+                  className="cities__places-list tabs__content"
+                  classNamePlaceCard="cities__place-card"
+                  classNamePlaceCardImageWrapper="cities__image-wrapper"
                   onClickCardName={onClickCardName}
                   onMouseEnterCard={onMouseEnterCard}
                   onMouseLeaveCard={onMouseLeaveCard}
