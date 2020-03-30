@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Should Main render correctly 1`] = `
+exports[`Should Main render correctly when offers are 1`] = `
 <main
   className="page__main page__main--index"
 >
@@ -766,3 +766,5 @@ exports[`Should Main render correctly 1`] = `
   </div>
 </main>
 `;
+
+exports[`Should Main render correctly when there are no offers 1`] = `null`;

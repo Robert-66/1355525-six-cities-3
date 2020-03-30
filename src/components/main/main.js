@@ -5,6 +5,7 @@ import {MAX_CITIES_COUNT} from '../../const';
 import {getCities, getOffers, getSortedOffers, getCurrentCityLocation} from '../../reducer/selectors';
 import PlaceCardList from '../place-card-list/place-card-list';
 import Map from '../map/map';
+import MainEmpty from '../main-empty/main-empty';
 import CitiesList from '../cities-list/cities-list';
 import SortingOptions from '../sorting-options/sorting-options';
 import {offerType} from '../../types/offers-types.js';
@@ -27,9 +28,9 @@ function Main(props) {
   } = props;
 
   return (
-    <main className="page__main page__main--index">
+    <>
       {offers.data.length > 0 && (
-        <>
+        <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
           <CitiesList
             cities={cities}
@@ -68,14 +69,19 @@ function Main(props) {
               </div>
             </div>
           </div>
-        </>
+        </main>
+      )}
+      {offers.data.length === 0 && !offers.isLoading && (
+        <MainEmpty />
       )}
       {offers.isError && (
-        <div className="container">
-          <h1>Что-то пошло не так :(</h1>
-        </div>
+        <main className="page__main">
+          <div className="container">
+            <h1>Что-то пошло не так :(</h1>
+          </div>
+        </main>
       )}
-    </main>
+    </>
   );
 }
 
