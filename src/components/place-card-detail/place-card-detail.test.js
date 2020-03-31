@@ -1,8 +1,13 @@
 import React from 'react';
+import {Provider} from 'react-redux';
+import configureStore from 'redux-mock-store';
 import renderer from 'react-test-renderer';
 import {BrowserRouter} from 'react-router-dom';
 import {CityNames} from '../../const';
+import {AuthorizationStatus} from '../../reducer/user/user';
 import {PlaceCardDetail} from './place-card-detail';
+
+const mockStore = configureStore([]);
 
 const mocks = {
   offer: {
@@ -116,22 +121,38 @@ const mocks = {
       }
     },
   ],
+  reviewsForm: {
+    data: [],
+    isLoading: false,
+    isError: false,
+  },
   currentCityLocation: [52.37454, 4.897976],
 };
 mocks.offersNearbyMap = [mocks.offer.data, ...mocks.offersNearby];
 
 it(`Should PlaceCardDetail render correctly`, () => {
+  const store = mockStore({
+    user: {
+      authorizationStatus: AuthorizationStatus.AUTH,
+    },
+    data: {
+      reviewsForm: mocks.reviewsForm,
+    }
+  });
+
   const tree = renderer
     .create(
-        <BrowserRouter>
-          <PlaceCardDetail
-            offer={mocks.offer}
-            offersNearby={mocks.offersNearby}
-            offersNearbyMap={mocks.offersNearbyMap}
-            currentCityLocation={mocks.currentCityLocation}
-            reviews={mocks.reviews}
-          />
-        </BrowserRouter>,
+        <Provider store={store}>
+          <BrowserRouter>
+            <PlaceCardDetail
+              offer={mocks.offer}
+              offersNearby={mocks.offersNearby}
+              offersNearbyMap={mocks.offersNearbyMap}
+              currentCityLocation={mocks.currentCityLocation}
+              reviews={mocks.reviews}
+            />
+          </BrowserRouter>
+        </Provider>,
         {
           createNodeMock: () => {
             return document.createElement(`section`);
