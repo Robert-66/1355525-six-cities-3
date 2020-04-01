@@ -115,7 +115,11 @@ function PlaceCardDetail(props) {
                     </p>
                   </div>
                 </div>
-                <Reviews reviews={reviews} className="property__reviews" />
+                <Reviews
+                  reviews={reviews}
+                  offerId={id}
+                  className="property__reviews"
+                />
               </div>
             </div>
             <Map className="property__map" offers={offersNearbyMap} city={currentCityLocation} hoverOfferId={id} />
@@ -195,8 +199,8 @@ function mapStateToProps(state, props) {
   }
 
   const reviews = mockReviews
-      .slice(0, 10)
-      .sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
+    .slice(0, 10)
+    .sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
 
   return {
     offer,

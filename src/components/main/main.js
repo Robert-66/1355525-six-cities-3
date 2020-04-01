@@ -71,7 +71,7 @@ function Main(props) {
           </div>
         </main>
       )}
-      {offers.data.length === 0 && !offers.isLoading && (
+      {offers.data.length === 0 && !offers.isLoading && !offers.isError && (
         <MainEmpty />
       )}
       {offers.isError && (
