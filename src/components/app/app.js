@@ -1,5 +1,6 @@
 import React from 'react';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {Router, Switch, Route} from 'react-router-dom';
+import history from '../../history';
 import {AppRoute} from '../../const';
 import Page from '../page/page';
 import Main from '../main/main';
@@ -12,7 +13,7 @@ function handleCardNameClick() {
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router history={history}>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
           <Page className="page--gray page--main">
@@ -33,7 +34,7 @@ function App() {
         )}
         />
       </Switch>
-    </BrowserRouter>
+    </Router>
 
   );
 }
