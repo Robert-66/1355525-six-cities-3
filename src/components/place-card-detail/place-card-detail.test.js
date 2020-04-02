@@ -150,6 +150,7 @@ it(`Should PlaceCardDetail render correctly`, () => {
               offersNearbyMap={mocks.offersNearbyMap}
               currentCityLocation={mocks.currentCityLocation}
               reviews={mocks.reviews}
+              onChangeFavoriteStatus={() => {}}
             />
           </BrowserRouter>
         </Provider>,

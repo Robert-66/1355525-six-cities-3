@@ -124,6 +124,7 @@ it(`PlaceCardList is rendered correctly`, () => {
             onClickCardName={() => {}}
             onMouseEnterCard={() => {}}
             onMouseLeaveCard={() => {}}
+            onFavoriteClick={() => {}}
           />
         </BrowserRouter>
     )
