@@ -20,6 +20,7 @@ const offer = {
   },
   previewImage: `img/apartment-01.jpg`,
   isPremium: false,
+  isFavorite: false,
   type: `apartment`,
   id: 11,
   name: `Apartments Prinsengracht`,
@@ -37,6 +38,7 @@ describe(`PlaceCard callbacks`, () => {
       onClickCardName={() => {}}
       onMouseEnterCard={handleMouseEnterCard}
       onMouseLeaveCard={() => {}}
+      onFavoriteClick={() => {}}
     />);
 
     placeCard.simulate(`mouseEnter`);
@@ -53,6 +55,7 @@ describe(`PlaceCard callbacks`, () => {
       onClickCardName={() => {}}
       onMouseEnterCard={() => {}}
       onMouseLeaveCard={handleMouseLeaveCard}
+      onFavoriteClick={() => {}}
     />);
 
     placeCard.simulate(`mouseLeave`);
@@ -67,12 +70,32 @@ describe(`PlaceCard callbacks`, () => {
       onClickCardName={handleCardNameClick}
       onMouseEnterCard={() => {}}
       onMouseLeaveCard={() => {}}
+      onFavoriteClick={() => {}}
     />);
     const cardName = placeCard.find(`.place-card__name-link`);
 
     cardName.simulate(`click`);
 
     expect(handleCardNameClick).toHaveBeenCalledTimes(1);
+  });
+
+  it(`onFavoriteClick be called`, () => {
+    const onFavoriteClick = jest.fn();
+    const placeCard = shallow(
+        <PlaceCard
+          offer={offer}
+          onClickCardName={() => {}}
+          onMouseEnterCard={() => {}}
+          onMouseLeaveCard={() => {}}
+          onFavoriteClick={onFavoriteClick}
+        />
+    );
+    const button = placeCard.find(`.place-card__bookmark-button`);
+
+    button.simulate(`click`);
+
+    expect(onFavoriteClick).toHaveBeenCalledTimes(1);
+    expect(onFavoriteClick).toHaveBeenCalledWith(11, 1);
   });
 });
 

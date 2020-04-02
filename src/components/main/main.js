@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {ActionCreators} from '../../reducer/app/app';
+import {Operation as OffersOperation} from '../../reducer/data/offers/offers.js';
 import {MAX_CITIES_COUNT} from '../../const';
 import {getCities, getOffers, getSortedOffers, getCurrentCityLocation} from '../../reducer/selectors';
 import PlaceCardList from '../place-card-list/place-card-list';
@@ -25,6 +26,7 @@ function Main(props) {
     onSelectSortByOptionIndex,
     onMouseEnterCard,
     onMouseLeaveCard,
+    onChangeFavoriteStatus,
   } = props;
 
   return (
@@ -57,6 +59,7 @@ function Main(props) {
                   onClickCardName={onClickCardName}
                   onMouseEnterCard={onMouseEnterCard}
                   onMouseLeaveCard={onMouseLeaveCard}
+                  onFavoriteClick={onChangeFavoriteStatus}
                 />
               </section>
               <div className="cities__right-section">
@@ -102,6 +105,7 @@ Main.propTypes = {
   onSelectSortByOptionIndex: PropTypes.func.isRequired,
   onMouseEnterCard: PropTypes.func.isRequired,
   onMouseLeaveCard: PropTypes.func.isRequired,
+  onChangeFavoriteStatus: PropTypes.func.isRequired,
 };
 
 const sortingOptions = [`Popular`, `Price: low to high`, `Price: high to low`, `Top rated first`];
@@ -129,7 +133,8 @@ function mapDispatchToProps(dispatch) {
     onClickCity: (city) => dispatch(ActionCreators.changeCity(city)),
     onSelectSortByOptionIndex: (index) => dispatch(ActionCreators.setSortBySelectedOptionIndex(index)),
     onMouseEnterCard: (id) => dispatch(ActionCreators.setHoverOfferId(id)),
-    onMouseLeaveCard: () => dispatch(ActionCreators.resetHoverOfferId())
+    onMouseLeaveCard: () => dispatch(ActionCreators.resetHoverOfferId()),
+    onChangeFavoriteStatus: (hotelId, status) => dispatch(OffersOperation.changeOfferFavoriteStatus(hotelId, status)),
   };
 }
 

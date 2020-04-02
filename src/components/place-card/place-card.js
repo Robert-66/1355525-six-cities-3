@@ -11,7 +11,8 @@ function PlaceCard(props) {
     classNameImageWrapper,
     onClickCardName,
     onMouseEnterCard,
-    onMouseLeaveCard
+    onMouseLeaveCard,
+    onFavoriteClick,
   } = props;
   const {
     id,
@@ -19,6 +20,7 @@ function PlaceCard(props) {
     price,
     previewImage,
     isPremium,
+    isFavorite,
     type,
     rating
   } = offer;
@@ -44,7 +46,11 @@ function PlaceCard(props) {
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b> <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
+          <button
+            className={`button ${isFavorite ? `place-card__bookmark-button--active` : `place-card__bookmark-button`}`}
+            type="button"
+            onClick={() => onFavoriteClick(id, Number(!isFavorite))}
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark" />
             </svg>
@@ -73,6 +79,7 @@ PlaceCard.propTypes = {
   onClickCardName: PropTypes.func,
   onMouseEnterCard: PropTypes.func,
   onMouseLeaveCard: PropTypes.func,
+  onFavoriteClick: PropTypes.func.isRequired,
 };
 
 export default PlaceCard;

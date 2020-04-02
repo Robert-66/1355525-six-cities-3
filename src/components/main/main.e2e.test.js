@@ -147,6 +147,7 @@ it(`Should offer name be pressed`, () => {
           onClickCardName={handleCardNameClick}
           onMouseEnterCard={() => {}}
           onMouseLeaveCard={() => {}}
+          onChangeFavoriteStatus={() => {}}
         />
       </BrowserRouter>
   );

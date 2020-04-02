@@ -17,6 +17,7 @@ class PlaceCardList extends React.PureComponent {
       onClickCardName,
       onMouseEnterCard,
       onMouseLeaveCard,
+      onFavoriteClick,
     } = this.props;
 
     return (
@@ -30,6 +31,7 @@ class PlaceCardList extends React.PureComponent {
             onClickCardName={onClickCardName}
             onMouseEnterCard={onMouseEnterCard}
             onMouseLeaveCard={onMouseLeaveCard}
+            onFavoriteClick={onFavoriteClick}
           />
         ))}
       </div>
@@ -45,6 +47,7 @@ PlaceCardList.propTypes = {
   onClickCardName: PropTypes.func,
   onMouseEnterCard: PropTypes.func,
   onMouseLeaveCard: PropTypes.func,
+  onFavoriteClick: PropTypes.func.isRequired
 };
 
 PlaceCardList.defaultProps = {

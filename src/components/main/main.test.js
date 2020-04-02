@@ -144,6 +144,7 @@ describe(`Should Main render correctly`, () => {
               onClickCardName={() => {}}
               onMouseEnterCard={() => {}}
               onMouseLeaveCard={() => {}}
+              onChangeFavoriteStatus={() => {}}
             />
           </BrowserRouter>,
           {
@@ -169,6 +170,7 @@ describe(`Should Main render correctly`, () => {
             onClickCardName={() => {}}
             onMouseEnterCard={() => {}}
             onMouseLeaveCard={() => {}}
+            onChangeFavoriteStatus={() => {}}
           />
       )
       .toJSON();

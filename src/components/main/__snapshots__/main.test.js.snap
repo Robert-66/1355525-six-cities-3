@@ -169,7 +169,8 @@ exports[`Should Main render correctly when offers are 1`] = `
                   </span>
                 </div>
                 <button
-                  className="place-card__bookmark-button button"
+                  className="button place-card__bookmark-button"
+                  onClick={[Function]}
                   type="button"
                 >
                   <svg
@@ -277,7 +278,8 @@ exports[`Should Main render correctly when offers are 1`] = `
                   </span>
                 </div>
                 <button
-                  className="place-card__bookmark-button button"
+                  className="button place-card__bookmark-button"
+                  onClick={[Function]}
                   type="button"
                 >
                   <svg
@@ -385,7 +387,8 @@ exports[`Should Main render correctly when offers are 1`] = `
                   </span>
                 </div>
                 <button
-                  className="place-card__bookmark-button button"
+                  className="button place-card__bookmark-button"
+                  onClick={[Function]}
                   type="button"
                 >
                   <svg
@@ -486,7 +489,8 @@ exports[`Should Main render correctly when offers are 1`] = `
                   </span>
                 </div>
                 <button
-                  className="place-card__bookmark-button button"
+                  className="button place-card__bookmark-button"
+                  onClick={[Function]}
                   type="button"
                 >
                   <svg
@@ -594,7 +598,8 @@ exports[`Should Main render correctly when offers are 1`] = `
                   </span>
                 </div>
                 <button
-                  className="place-card__bookmark-button button"
+                  className="button place-card__bookmark-button"
+                  onClick={[Function]}
                   type="button"
                 >
                   <svg
@@ -695,7 +700,8 @@ exports[`Should Main render correctly when offers are 1`] = `
                   </span>
                 </div>
                 <button
-                  className="place-card__bookmark-button button"
+                  className="button place-card__bookmark-button"
+                  onClick={[Function]}
                   type="button"
                 >
                   <svg

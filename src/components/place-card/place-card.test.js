@@ -32,6 +32,7 @@ it(`PlaceCard is rendered correctly`, () => {
             onClickCardName={() => {}}
             onMouseEnterCard={() => {}}
             onMouseLeaveCard={() => {}}
+            onFavoriteClick={() => {}}
           />
         </BrowserRouter>
     )
