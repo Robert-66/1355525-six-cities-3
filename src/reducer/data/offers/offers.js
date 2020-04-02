@@ -10,6 +10,7 @@ const ActionTypes = {
   FETCH_OFFERS_START: `FETCH_OFFERS_START`,
   FETCH_OFFERS_SUCCESS: `FETCH_OFFERS_SUCCESS`,
   FETCH_OFFERS_FAILURE: `FETCH_OFFERS_FAILURE`,
+  UPDATE_OFFER: `UPDATE_OFFER`,
 };
 
 const ActionCreators = {
@@ -22,6 +23,10 @@ const ActionCreators = {
   }),
   fetchOffersFailure: () => ({
     type: ActionTypes.FETCH_OFFERS_FAILURE,
+  }),
+  updateOffer: (offer) => ({
+    type: ActionTypes.UPDATE_OFFER,
+    payload: offer,
   })
 };
 
@@ -37,6 +42,12 @@ const Operation = {
         dispatch(ActionCreators.fetchOffersFailure());
       });
   },
+  changeOfferFavoriteStatus: (offerId, status) => (dispatch, getState, api) => {
+    return api.post(`/favorite/${offerId}/${status}`)
+      .then((response) => {
+        dispatch(ActionCreators.updateOffer(adapterApi.transformOffer(response.data)));
+      });
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -47,6 +58,8 @@ const reducer = (state = initialState, action) => {
       return extend(state, {data: adapterApi.transformOffers(action.payload), isLoading: false});
     case ActionTypes.FETCH_OFFERS_FAILURE:
       return extend(state, {isError: true, isLoading: false});
+    case ActionTypes.UPDATE_OFFER:
+      return extend(state, {data: state.data.map((offer) => offer.id === action.payload.id ? action.payload : offer)});
   }
 
   return state;
