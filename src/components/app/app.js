@@ -6,7 +6,7 @@ import Page from '../page/page';
 import Main from '../main/main';
 import SignIn from '../sign-in/sign-in';
 import PlaceCardDetail from '../place-card-detail/place-card-detail';
-import Favorites from "../favorites/favorites";
+import Favorites from '../favorites/favorites';
 
 function handleCardNameClick() {
   return {};

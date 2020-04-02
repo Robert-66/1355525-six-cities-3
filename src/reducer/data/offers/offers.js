@@ -44,7 +44,7 @@ const reducer = (state = initialState, action) => {
     case ActionTypes.FETCH_OFFERS_START:
       return extend(state, {isLoading: true});
     case ActionTypes.FETCH_OFFERS_SUCCESS:
-      return extend(state, {data: adapterApi(action.payload), isLoading: false});
+      return extend(state, {data: adapterApi.transformOffers(action.payload), isLoading: false});
     case ActionTypes.FETCH_OFFERS_FAILURE:
       return extend(state, {isError: true, isLoading: false});
   }
