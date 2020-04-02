@@ -36,7 +36,7 @@ const Operation = {
 
     return api.get(`/hotels`)
       .then((response) => {
-        dispatch(ActionCreators.fetchOffersSuccess(response.data));
+        dispatch(ActionCreators.fetchOffersSuccess(adapterApi.transformOffers(response.data)));
       })
       .catch(() => {
         dispatch(ActionCreators.fetchOffersFailure());
@@ -55,7 +55,7 @@ const reducer = (state = initialState, action) => {
     case ActionTypes.FETCH_OFFERS_START:
       return extend(state, {isLoading: true});
     case ActionTypes.FETCH_OFFERS_SUCCESS:
-      return extend(state, {data: adapterApi.transformOffers(action.payload), isLoading: false});
+      return extend(state, {data: action.payload, isLoading: false});
     case ActionTypes.FETCH_OFFERS_FAILURE:
       return extend(state, {isError: true, isLoading: false});
     case ActionTypes.UPDATE_OFFER:
