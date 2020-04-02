@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {getCurrentCityLocation, getOffers} from '../../reducer/selectors';
+import {Operation as OffersOperation} from '../../reducer/data/offers/offers.js';
 import {extend} from '../../utils';
 import PropTypes from 'prop-types';
 import Reviews from '../reviews/reviews';
@@ -17,6 +18,7 @@ function PlaceCardDetail(props) {
     offersNearbyMap,
     currentCityLocation,
     reviews,
+    onChangeFavoriteStatus,
   } = props;
   const {
     images,
@@ -132,6 +134,7 @@ function PlaceCardDetail(props) {
                 className="near-places__list"
                 classNamePlaceCard="near-places__card"
                 classNamePlaceCardImageWrapper="near-places__image-wrapper"
+                onFavoriteClick={onChangeFavoriteStatus}
               />
             </section>
           </div>
@@ -181,6 +184,7 @@ PlaceCardDetail.propTypes = {
   offersNearbyMap: PropTypes.arrayOf(offerType).isRequired,
   currentCityLocation: PropTypes.arrayOf(PropTypes.number),
   reviews: PropTypes.arrayOf(reviewType).isRequired,
+  onChangeFavoriteStatus: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state, props) {
@@ -211,5 +215,11 @@ function mapStateToProps(state, props) {
   };
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+    onChangeFavoriteStatus: (hotelId, status) => dispatch(OffersOperation.changeOfferFavoriteStatus(hotelId, status)),
+  };
+}
+
 export {PlaceCardDetail};
-export default connect(mapStateToProps)(PlaceCardDetail);
+export default connect(mapStateToProps, mapDispatchToProps)(PlaceCardDetail);
