@@ -8,19 +8,13 @@ import SignIn from '../sign-in/sign-in';
 import PlaceCardDetail from '../place-card-detail/place-card-detail';
 import Favorites from '../favorites/favorites';
 
-function handleCardNameClick() {
-  return {};
-}
-
 function App() {
   return (
     <Router history={history}>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
           <Page className="page--gray page--main">
-            <Main
-              onClickCardName={handleCardNameClick}
-            />
+            <Main />
           </Page>
         </Route>
         <Route exact path={AppRoute.LOGIN}>

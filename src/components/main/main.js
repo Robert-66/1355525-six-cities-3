@@ -16,7 +16,6 @@ function Main(props) {
   const {
     offers,
     sortedOffers,
-    onClickCardName,
     cities,
     currentCity,
     currentCityLocation,
@@ -53,10 +52,6 @@ function Main(props) {
                 </form>
                 <PlaceCardList
                   offers={sortedOffers}
-                  className="cities__places-list tabs__content"
-                  classNamePlaceCard="cities__place-card"
-                  classNamePlaceCardImageWrapper="cities__image-wrapper"
-                  onClickCardName={onClickCardName}
                   onMouseEnterCard={onMouseEnterCard}
                   onMouseLeaveCard={onMouseLeaveCard}
                   onFavoriteClick={onChangeFavoriteStatus}
@@ -101,7 +96,6 @@ Main.propTypes = {
   hoverOfferId: PropTypes.number,
   sortingOptions: PropTypes.arrayOf(PropTypes.string),
   onClickCity: PropTypes.func.isRequired,
-  onClickCardName: PropTypes.func.isRequired,
   onSelectSortByOptionIndex: PropTypes.func.isRequired,
   onMouseEnterCard: PropTypes.func.isRequired,
   onMouseLeaveCard: PropTypes.func.isRequired,

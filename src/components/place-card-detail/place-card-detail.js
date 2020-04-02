@@ -9,6 +9,7 @@ import Map from '../map/map';
 import mockReviews from '../../mocks/reviews';
 import {reviewType} from '../../types/reviews-types';
 import {offerType} from '../../types/offers-types';
+import {PlaceCardView} from '../../const';
 import PlaceCardList from '../place-card-list/place-card-list';
 
 function PlaceCardDetail(props) {
@@ -131,9 +132,7 @@ function PlaceCardDetail(props) {
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <PlaceCardList
                 offers={offersNearby}
-                className="near-places__list"
-                classNamePlaceCard="near-places__card"
-                classNamePlaceCardImageWrapper="near-places__image-wrapper"
+                view={PlaceCardView.NEAR}
                 onFavoriteClick={onChangeFavoriteStatus}
               />
             </section>

@@ -1,6 +1,7 @@
 import React from 'react';
 import {configure, shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import {AuthorizationStatus} from '../../reducer/user/user';
 
 import PlaceCard from './place-card';
 import {CityNames} from '../../const';
@@ -33,13 +34,15 @@ describe(`PlaceCard callbacks`, () => {
 
   it(`When the cursor over the offer card in the callback onMouseEnterCard gets information about the offer id`, () => {
     const handleMouseEnterCard = jest.fn();
-    const placeCard = shallow(<PlaceCard
-      offer={offer}
-      onClickCardName={() => {}}
-      onMouseEnterCard={handleMouseEnterCard}
-      onMouseLeaveCard={() => {}}
-      onFavoriteClick={() => {}}
-    />);
+    const placeCard = shallow(
+        <PlaceCard
+          offer={offer}
+          authorizationStatus={AuthorizationStatus.NO_AUTH}
+          onMouseEnterCard={handleMouseEnterCard}
+          onMouseLeaveCard={() => {}}
+          onFavoriteClick={() => {}}
+        />
+    );
 
     placeCard.simulate(`mouseEnter`);
 
@@ -50,33 +53,19 @@ describe(`PlaceCard callbacks`, () => {
 
   it(`When the cursor leaves the offer card, the callback onMouseLeaveCard is called`, () => {
     const handleMouseLeaveCard = jest.fn();
-    const placeCard = shallow(<PlaceCard
-      offer={offer}
-      onClickCardName={() => {}}
-      onMouseEnterCard={() => {}}
-      onMouseLeaveCard={handleMouseLeaveCard}
-      onFavoriteClick={() => {}}
-    />);
+    const placeCard = shallow(
+        <PlaceCard
+          offer={offer}
+          authorizationStatus={AuthorizationStatus.NO_AUTH}
+          onMouseEnterCard={() => {}}
+          onMouseLeaveCard={handleMouseLeaveCard}
+          onFavoriteClick={() => {}}
+        />
+    );
 
     placeCard.simulate(`mouseLeave`);
 
     expect(handleMouseLeaveCard).toHaveBeenCalledTimes(1);
-  });
-
-  it(`Clicking on a offer name causes a callback`, () => {
-    const handleCardNameClick = jest.fn();
-    const placeCard = shallow(<PlaceCard
-      offer={offer}
-      onClickCardName={handleCardNameClick}
-      onMouseEnterCard={() => {}}
-      onMouseLeaveCard={() => {}}
-      onFavoriteClick={() => {}}
-    />);
-    const cardName = placeCard.find(`.place-card__name-link`);
-
-    cardName.simulate(`click`);
-
-    expect(handleCardNameClick).toHaveBeenCalledTimes(1);
   });
 
   it(`onFavoriteClick be called`, () => {
@@ -84,7 +73,7 @@ describe(`PlaceCard callbacks`, () => {
     const placeCard = shallow(
         <PlaceCard
           offer={offer}
-          onClickCardName={() => {}}
+          authorizationStatus={AuthorizationStatus.AUTH}
           onMouseEnterCard={() => {}}
           onMouseLeaveCard={() => {}}
           onFavoriteClick={onFavoriteClick}

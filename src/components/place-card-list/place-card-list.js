@@ -1,61 +1,57 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from "react-redux";
 import PlaceCard from '../place-card/place-card';
 import {offerType} from '../../types/offers-types.js';
+import {PlaceCardView} from '../../const';
 
-class PlaceCardList extends React.PureComponent {
-  constructor(props) {
-    super(props);
-  }
+const PlaceCardList = React.memo(function PlaceCardList(props) {
+  const {
+    offers,
+    view,
+    authorizationStatus,
+    onMouseEnterCard,
+    onMouseLeaveCard,
+    onFavoriteClick,
+  } = props;
 
-  render() {
-    const {
-      offers,
-      className,
-      classNamePlaceCard,
-      classNamePlaceCardImageWrapper,
-      onClickCardName,
-      onMouseEnterCard,
-      onMouseLeaveCard,
-      onFavoriteClick,
-    } = this.props;
+  const classNameList = view === PlaceCardView.CITY ? `cities__places-list tabs__content` : `near-places__list`;
 
-    return (
-      <div className={`places__list${className ? ` ` + className : ``}`}>
-        {offers.map((offer) => (
-          <PlaceCard
-            key={offer.id}
-            offer={offer}
-            className={classNamePlaceCard}
-            classNameImageWrapper={classNamePlaceCardImageWrapper}
-            onClickCardName={onClickCardName}
-            onMouseEnterCard={onMouseEnterCard}
-            onMouseLeaveCard={onMouseLeaveCard}
-            onFavoriteClick={onFavoriteClick}
-          />
-        ))}
-      </div>
-    );
-  }
-}
+  return (
+    <div className={`places__list ${classNameList}`}>
+      {offers.map((offer) => (
+        <PlaceCard
+          key={offer.id}
+          offer={offer}
+          view={view}
+          authorizationStatus={authorizationStatus}
+          onMouseEnterCard={onMouseEnterCard}
+          onMouseLeaveCard={onMouseLeaveCard}
+          onFavoriteClick={onFavoriteClick}
+        />
+      ))}
+    </div>
+  );
+});
 
 PlaceCardList.propTypes = {
-  className: PropTypes.string,
-  classNamePlaceCard: PropTypes.string,
-  classNamePlaceCardImageWrapper: PropTypes.string,
   offers: PropTypes.arrayOf(offerType).isRequired,
-  onClickCardName: PropTypes.func,
+  view: PropTypes.oneOf([PlaceCardView.CITY, PlaceCardView.NEAR, PlaceCardView.FAVORITE]),
+  authorizationStatus: PropTypes.string.isRequired,
   onMouseEnterCard: PropTypes.func,
   onMouseLeaveCard: PropTypes.func,
-  onFavoriteClick: PropTypes.func.isRequired
+  onFavoriteClick: PropTypes.func,
 };
 
 PlaceCardList.defaultProps = {
-  classNamePlaceCard: ``,
-  classNamePlaceCardImageWrapper: ``,
-  onClickCardName: () => {},
-  onMouseEnterCard: () => {},
-  onMouseLeaveCard: () => {},
+  view: PlaceCardView.CITY,
 };
 
-export default PlaceCardList;
+function mapStateToProps(state) {
+  return {
+    authorizationStatus: state.user.authorizationStatus,
+  };
+}
+
+export {PlaceCardList};
+export default connect(mapStateToProps)(PlaceCardList);

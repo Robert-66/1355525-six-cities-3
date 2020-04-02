@@ -1,8 +1,13 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import configureStore from 'redux-mock-store';
 import {BrowserRouter} from 'react-router-dom';
 import {Main} from './main';
 import {CityNames} from '../../const';
+import {AuthorizationStatus} from '../../reducer/user/user';
+import {Provider} from 'react-redux';
+
+const mockStore = configureStore([]);
 
 const offers = {
   data: [
@@ -127,26 +132,33 @@ const cities = [
 const sortingOptions = [`Popular`, `Price: low to high`, `Price: high to low`, `Top rated first`];
 
 describe(`Should Main render correctly`, () => {
+  const store = mockStore({
+    user: {
+      authorizationStatus: AuthorizationStatus.NO_AUTH,
+      email: ``,
+    }
+  });
 
   it(`when offers are`, () => {
     const tree = renderer
       .create(
-          <BrowserRouter>
-            <Main
-              offers={offers}
-              sortedOffers={offers.data}
-              cities={cities}
-              currentCity="Paris"
-              currentCityLocation={[48.877610000000004, 2.333499]}
-              sortingOptions={sortingOptions}
-              onSelectSortByOptionIndex={() => {}}
-              onClickCity={() => {}}
-              onClickCardName={() => {}}
-              onMouseEnterCard={() => {}}
-              onMouseLeaveCard={() => {}}
-              onChangeFavoriteStatus={() => {}}
-            />
-          </BrowserRouter>,
+          <Provider store={store}>
+            <BrowserRouter>
+              <Main
+                offers={offers}
+                sortedOffers={offers.data}
+                cities={cities}
+                currentCity="Paris"
+                currentCityLocation={[48.877610000000004, 2.333499]}
+                sortingOptions={sortingOptions}
+                onSelectSortByOptionIndex={() => {}}
+                onClickCity={() => {}}
+                onMouseEnterCard={() => {}}
+                onMouseLeaveCard={() => {}}
+                onChangeFavoriteStatus={() => {}}
+              />
+            </BrowserRouter>
+          </Provider>,
           {
             createNodeMock: () => {
               return document.createElement(`section`);
@@ -167,7 +179,6 @@ describe(`Should Main render correctly`, () => {
             offers={offers}
             onSelectSortByOptionIndex={() => {}}
             onClickCity={() => {}}
-            onClickCardName={() => {}}
             onMouseEnterCard={() => {}}
             onMouseLeaveCard={() => {}}
             onChangeFavoriteStatus={() => {}}
