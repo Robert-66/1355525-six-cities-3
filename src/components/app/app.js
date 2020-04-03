@@ -7,6 +7,7 @@ import Main from '../main/main';
 import SignIn from '../sign-in/sign-in';
 import PlaceCardDetail from '../place-card-detail/place-card-detail';
 import Favorites from '../favorites/favorites';
+import PrivateRoute from '../private-route/private-route';
 
 function App() {
   return (
@@ -28,11 +29,15 @@ function App() {
           </Page>
         )}
         />
-        <Route exact path={AppRoute.FAVORITES}>
-          <Page>
-            <Favorites/>
-          </Page>
-        </Route>
+        <PrivateRoute
+          exact
+          path={AppRoute.FAVORITES}
+          render={() => (
+            <Page>
+              <Favorites/>
+            </Page>
+          )}
+        />
       </Switch>
     </Router>
 
