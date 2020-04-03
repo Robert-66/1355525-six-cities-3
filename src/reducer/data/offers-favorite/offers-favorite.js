@@ -45,13 +45,11 @@ const reducer = (state = initialState, action) => {
     case ActionTypes.FETCH_OFFERS_FAVORITE_START:
       return extend(state, {isLoading: true, isError: false});
     case ActionTypes.FETCH_OFFERS_FAVORITE_SUCCESS:
-      return extend(state, {data: action.payload, isLoading: false, isError: false,});
+      return extend(state, {data: action.payload, isLoading: false, isError: false});
     case ActionTypes.FETCH_OFFERS_FAVORITE_FAILURE:
-      return extend(state, {data: [], isLoading: false, isError: true,});
+      return extend(state, {data: [], isLoading: false, isError: true});
     case OffersActionType.UPDATE_OFFER:
-      return Object.assign({}, state, {
-        data: state.data.filter((offer) => offer.id !== action.payload.id)
-      });
+      return extend(state, {data: state.data.filter((offer) => offer.id !== action.payload.id)});
   }
 
   return state;
