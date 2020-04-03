@@ -26,6 +26,10 @@ function PlaceCard(props) {
     type,
     rating
   } = offer;
+  const styleImageWrapperWidthLimit = {
+    maxWidth: `150px`,
+  };
+
   let classNameArticle;
   let classNameImageWrapper;
 
@@ -76,7 +80,10 @@ function PlaceCard(props) {
           <span>Premium</span>
         </div>
       )}
-      <div className={`place-card__image-wrapper ${classNameImageWrapper}`}>
+      <div
+        className={`place-card__image-wrapper ${classNameImageWrapper}`}
+        style={view === PlaceCardView.FAVORITE ? styleImageWrapperWidthLimit : {}}
+      >
         <a href="#">
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
         </a>

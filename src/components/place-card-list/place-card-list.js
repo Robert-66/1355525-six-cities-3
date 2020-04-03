@@ -14,11 +14,22 @@ const PlaceCardList = React.memo(function PlaceCardList(props) {
     onMouseLeaveCard,
     onFavoriteClick,
   } = props;
+  let classNameParentBlock;
 
-  const classNameList = view === PlaceCardView.CITY ? `cities__places-list tabs__content` : `near-places__list`;
+  switch (view) {
+    case PlaceCardView.CITY:
+      classNameParentBlock = `places__list cities__places-list tabs__content`;
+      break;
+    case PlaceCardView.NEAR:
+      classNameParentBlock = `places__list near-places__list`;
+      break;
+    case PlaceCardView.FAVORITE:
+      classNameParentBlock = `favorites__places`;
+      break;
+  }
 
   return (
-    <div className={`places__list ${classNameList}`}>
+    <div className={classNameParentBlock}>
       {offers.map((offer) => (
         <PlaceCard
           key={offer.id}
