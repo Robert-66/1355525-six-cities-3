@@ -3,6 +3,7 @@ import renderer from 'react-test-renderer';
 import {BrowserRouter} from "react-router-dom";
 import PlaceCard from './place-card';
 import {CityNames} from '../../const';
+import {AuthorizationStatus} from "../../reducer/user/user";
 
 const offer = {
   city: {
@@ -29,6 +30,7 @@ it(`PlaceCard is rendered correctly`, () => {
         <BrowserRouter>
           <PlaceCard
             offer={offer}
+            authorizationStatus={AuthorizationStatus.NO_AUTH}
             onClickCardName={() => {}}
             onMouseEnterCard={() => {}}
             onMouseLeaveCard={() => {}}

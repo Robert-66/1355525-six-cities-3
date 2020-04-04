@@ -18,3 +18,9 @@ export const AppRoute = {
   ROOM: `/offer`,
   FAVORITES: `/favorites`,
 };
+
+export const PlaceCardView = {
+  CITY: `CITY`,
+  NEAR: `NEAR`,
+  FAVORITE: `FAVORITE`,
+};

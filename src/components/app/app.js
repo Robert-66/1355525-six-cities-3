@@ -7,10 +7,7 @@ import Main from '../main/main';
 import SignIn from '../sign-in/sign-in';
 import PlaceCardDetail from '../place-card-detail/place-card-detail';
 import Favorites from '../favorites/favorites';
-
-function handleCardNameClick() {
-  return {};
-}
+import PrivateRoute from '../private-route/private-route';
 
 function App() {
   return (
@@ -18,9 +15,7 @@ function App() {
       <Switch>
         <Route exact path={AppRoute.ROOT}>
           <Page className="page--gray page--main">
-            <Main
-              onClickCardName={handleCardNameClick}
-            />
+            <Main />
           </Page>
         </Route>
         <Route exact path={AppRoute.LOGIN}>
@@ -34,11 +29,15 @@ function App() {
           </Page>
         )}
         />
-        <Route exact path={AppRoute.FAVORITES}>
-          <Page>
-            <Favorites/>
-          </Page>
-        </Route>
+        <PrivateRoute
+          exact
+          path={AppRoute.FAVORITES}
+          render={() => (
+            <Page>
+              <Favorites/>
+            </Page>
+          )}
+        />
       </Switch>
     </Router>
 

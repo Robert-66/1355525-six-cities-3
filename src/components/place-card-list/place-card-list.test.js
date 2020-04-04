@@ -1,8 +1,9 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import {BrowserRouter} from 'react-router-dom';
-import PlaceCardList from './place-card-list';
+import {PlaceCardList} from './place-card-list';
 import {CityNames} from '../../const';
+import {AuthorizationStatus} from '../../reducer/user/user';
 
 const offers = [
   {
@@ -121,6 +122,7 @@ it(`PlaceCardList is rendered correctly`, () => {
         <BrowserRouter>
           <PlaceCardList
             offers={offers}
+            authorizationStatus={AuthorizationStatus.NO_AUTH}
             onClickCardName={() => {}}
             onMouseEnterCard={() => {}}
             onMouseLeaveCard={() => {}}

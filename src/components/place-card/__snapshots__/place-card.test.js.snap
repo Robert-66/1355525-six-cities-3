@@ -2,12 +2,13 @@
 
 exports[`PlaceCard is rendered correctly 1`] = `
 <article
-  className="place-card"
+  className="place-card cities__place-card"
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
 >
   <div
-    className="place-card__image-wrapper"
+    className="place-card__image-wrapper cities__image-wrapper"
+    style={Object {}}
   >
     <a
       href="#"

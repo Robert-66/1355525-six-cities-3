@@ -133,6 +133,7 @@ exports[`Should Main render correctly when offers are 1`] = `
           >
             <div
               className="place-card__image-wrapper cities__image-wrapper"
+              style={Object {}}
             >
               <a
                 href="#"
@@ -242,6 +243,7 @@ exports[`Should Main render correctly when offers are 1`] = `
             </div>
             <div
               className="place-card__image-wrapper cities__image-wrapper"
+              style={Object {}}
             >
               <a
                 href="#"
@@ -351,6 +353,7 @@ exports[`Should Main render correctly when offers are 1`] = `
             </div>
             <div
               className="place-card__image-wrapper cities__image-wrapper"
+              style={Object {}}
             >
               <a
                 href="#"
@@ -453,6 +456,7 @@ exports[`Should Main render correctly when offers are 1`] = `
           >
             <div
               className="place-card__image-wrapper cities__image-wrapper"
+              style={Object {}}
             >
               <a
                 href="#"
@@ -562,6 +566,7 @@ exports[`Should Main render correctly when offers are 1`] = `
             </div>
             <div
               className="place-card__image-wrapper cities__image-wrapper"
+              style={Object {}}
             >
               <a
                 href="#"
@@ -664,6 +669,7 @@ exports[`Should Main render correctly when offers are 1`] = `
           >
             <div
               className="place-card__image-wrapper cities__image-wrapper"
+              style={Object {}}
             >
               <a
                 href="#"
