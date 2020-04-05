@@ -25,7 +25,7 @@ function App() {
         </Route>
         <Route exact path={`${AppRoute.ROOM}/:id`} render={(routeProps) => (
           <Page>
-            <PlaceCardDetail {...routeProps} />
+            <PlaceCardDetail offerId={routeProps.match.params.id} />
           </Page>
         )}
         />
