@@ -5,64 +5,86 @@ import {reviewType} from '../../types/reviews-types.js';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {AuthorizationStatus} from '../../reducer/user/user';
-import {Operation} from '../../reducer/data/reviews-form/reviews-form';
-import {ActionCreators} from '../../reducer/data/reviews-form/reviews-form';
+import {ActionCreators} from '../../reducer/data/reviews/reviews';
+import {Operation as ReviewsOperation} from "../../reducer/data/reviews/reviews";
+import {getReviews, getReviewsForm} from "../../reducer/data/reviews/selectors";
 
-function Reviews(props) {
-  const {
-    className,
-    reviews,
-    reviewsForm,
-    authorizationStatus,
-    offerId,
-    onSubmitReview,
-    onResetReviewFormState,
-  } = props;
+class Reviews extends React.PureComponent {
+  constructor(props) {
+    super(props);
 
-  function handleReviewSubmit(reviewData) {
-    onSubmitReview(offerId, reviewData);
+    this.handleReviewSubmit = this.handleReviewSubmit.bind(this);
   }
 
-  return (
-    <section className={`reviews${className ? ` ` + className : ``}`}>
-      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-      <ReviewsList reviews={reviews} />
-      {authorizationStatus === AuthorizationStatus.AUTH && (
-        <ReviewsForm
-          reviews={reviewsForm}
-          onSubmit={handleReviewSubmit}
-          onResetState={onResetReviewFormState}
-        />
-      )}
-    </section>
-  );
+  componentDidMount() {
+    this.props.fetchReviews(this.props.offerId);
+  }
+
+  handleReviewSubmit(reviewData) {
+    this.props.onSubmitReview(this.props.offerId, reviewData);
+  }
+
+  render() {
+    const {
+      className,
+      reviews,
+      reviewsForm,
+      authorizationStatus,
+      onResetReviewFormState,
+    } = this.props;
+
+    return (
+      <section className={`reviews${className ? ` ` + className : ``}`}>
+        {reviews.data.length > 0 && (
+          <>
+            <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.data.length}</span></h2>
+            <ReviewsList reviews={reviews.data}/>
+            {authorizationStatus === AuthorizationStatus.AUTH && (
+              <ReviewsForm
+                reviews={reviewsForm}
+                onSubmit={this.handleReviewSubmit}
+                onResetState={onResetReviewFormState}
+              />
+            )}
+          </>
+        )}
+      </section>
+    );
+  }
 }
 
 Reviews.propTypes = {
   className: PropTypes.string,
-  reviews: PropTypes.arrayOf(reviewType).isRequired,
+  reviews: PropTypes.shape({
+    data: PropTypes.arrayOf(reviewType).isRequired,
+    isLoadingFetchReview: PropTypes.bool.isRequired,
+    isErrorFetchReview: PropTypes.bool.isRequired,
+  }).isRequired,
   reviewsForm: PropTypes.shape({
-    data: PropTypes.arrayOf(PropTypes.object).isRequired,
-    isLoading: PropTypes.bool.isRequired,
-    isError: PropTypes.bool.isRequired,
+    data: PropTypes.arrayOf(reviewType).isRequired,
+    isLoadingCreateReview: PropTypes.bool.isRequired,
+    isErrorCreateReview: PropTypes.bool.isRequired,
   }).isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   offerId: PropTypes.number.isRequired,
   onSubmitReview: PropTypes.func.isRequired,
   onResetReviewFormState: PropTypes.func.isRequired,
+  fetchReviews: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
+    reviews: getReviews(state),
+    reviewsForm: getReviewsForm(state),
     authorizationStatus: state.user.authorizationStatus,
-    reviewsForm: state.data.reviewsForm,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    onSubmitReview: (offerId, reviewData) => dispatch(Operation.fetchReviewsForm(offerId, reviewData)),
-    onResetReviewFormState: () => dispatch(ActionCreators.resetReviewsFormState()),
+    fetchReviews: (offerId) => dispatch(ReviewsOperation.fetchReviews(offerId)),
+    onSubmitReview: (offerId, reviewData) => dispatch(ReviewsOperation.createReview(offerId, reviewData)),
+    onResetReviewFormState: () => dispatch(ActionCreators.resetReviewState()),
   };
 }
 

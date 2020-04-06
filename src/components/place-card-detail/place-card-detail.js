@@ -10,8 +10,6 @@ import history from '../../history';
 import PropTypes from 'prop-types';
 import Reviews from '../reviews/reviews';
 import Map from '../map/map';
-import mockReviews from '../../mocks/reviews';
-import {reviewType} from '../../types/reviews-types';
 import {offerType} from '../../types/offers-types';
 import {AppRoute, PlaceCardView} from '../../const';
 import PlaceCardList from '../place-card-list/place-card-list';
@@ -32,7 +30,6 @@ class PlaceCardDetail extends React.PureComponent {
       offersNearby,
       offersNearbyMap,
       currentCityLocation,
-      reviews,
       authorizationStatus,
       onChangeFavoriteStatus,
     } = this.props;
@@ -140,7 +137,6 @@ class PlaceCardDetail extends React.PureComponent {
                 </div>
               </div>
               <Reviews
-                reviews={reviews}
                 offerId={id}
                 className="property__reviews"
               />
@@ -182,23 +178,17 @@ PlaceCardDetail.propTypes = {
   }),
   offersNearbyMap: PropTypes.arrayOf(offerType).isRequired,
   currentCityLocation: PropTypes.arrayOf(PropTypes.number),
-  reviews: PropTypes.arrayOf(reviewType).isRequired,
   fetchOffersNearby: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   onChangeFavoriteStatus: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state, ownProps) {
-  const reviews = mockReviews
-    .slice(0, 10)
-    .sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
-
   return {
     offer: getCurrentOffer(state, ownProps),
     offersNearby: getOffersNearby(state),
     offersNearbyMap: getOffersNearbyMap(state, ownProps),
     currentCityLocation: getCurrentCityLocation(state),
-    reviews,
     authorizationStatus: getAuthorizationStatus(state),
   };
 }

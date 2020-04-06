@@ -1,4 +1,4 @@
-import {extend} from '../../../utils';
+import {extend, adapterApi} from '../../../utils';
 
 const initialState = {
   data: [],
@@ -32,7 +32,7 @@ const ActionCreators = {
   createReviewStart: () => ({
     type: ActionTypes.CREATE_REVIEW_START,
   }),
-  createReviewSucces: (data) => ({
+  createReviewSuccess: (data) => ({
     type: ActionTypes.CREATE_REVIEW_SUCCESS,
     payload: data
   }),
@@ -47,18 +47,21 @@ const ActionCreators = {
 const Operation = {
   fetchReviews: (offerId) => (dispatch, getState, api) => {
     dispatch(ActionCreators.fetchReviewsStart());
+
     return api.get(`/comments/${offerId}`)
       .then((response) => {
-        dispatch(ActionCreators.fetchReviewsSuccess(response.data));
+        dispatch(ActionCreators.fetchReviewsSuccess(adapterApi.transformReviews(response.data)));
       })
       .catch(() => {
         dispatch(ActionCreators.fetchReviewsFailure());
       });
   },
   createReview: (offerId, data) => (dispatch, getState, api) => {
+    dispatch(ActionCreators.createReviewStart());
+
     return api.post(`/comments/${offerId}`, data)
       .then((response) => {
-        dispatch(ActionCreators.createReviewSucces(response.data));
+        dispatch(ActionCreators.createReviewSuccess(adapterApi.transformReviews(response.data)));
       })
       .catch(() => {
         dispatch(ActionCreators.createReviewFailure());
