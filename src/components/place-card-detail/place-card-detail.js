@@ -3,16 +3,19 @@ import {connect} from 'react-redux';
 import {getCurrentOffer} from '../../reducer/selectors';
 import {getOffersNearby, getOffersNearbyMap} from '../../reducer/data/offers-nearby/selectors';
 import {getCurrentCityLocation} from '../../reducer/selectors';
+import {getAuthorizationStatus} from '../../reducer/user/selectors';
 import {Operation as OffersOperation} from '../../reducer/data/offers/offers';
 import {Operation as OffersNearbyOperation} from '../../reducer/data/offers-nearby/offers-nearby';
+import history from '../../history';
 import PropTypes from 'prop-types';
 import Reviews from '../reviews/reviews';
 import Map from '../map/map';
 import mockReviews from '../../mocks/reviews';
 import {reviewType} from '../../types/reviews-types';
 import {offerType} from '../../types/offers-types';
-import {PlaceCardView} from '../../const';
+import {AppRoute, PlaceCardView} from '../../const';
 import PlaceCardList from '../place-card-list/place-card-list';
+import {AuthorizationStatus} from '../../reducer/user/user';
 
 class PlaceCardDetail extends React.PureComponent {
   constructor(props) {
@@ -30,6 +33,7 @@ class PlaceCardDetail extends React.PureComponent {
       offersNearbyMap,
       currentCityLocation,
       reviews,
+      authorizationStatus,
       onChangeFavoriteStatus,
     } = this.props;
     const {
@@ -74,7 +78,9 @@ class PlaceCardDetail extends React.PureComponent {
                 <button
                   className={`property__bookmark-button button${isFavorite ? ` property__bookmark-button--active` : ``}`}
                   type="button"
-                  onClick={() => onChangeFavoriteStatus(id, Number(!isFavorite))}
+                  onClick={() => authorizationStatus === AuthorizationStatus.AUTH
+                    ? onChangeFavoriteStatus(id, Number(!isFavorite))
+                    : history.push(AppRoute.LOGIN)}
                 >
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark" />
@@ -178,6 +184,7 @@ PlaceCardDetail.propTypes = {
   currentCityLocation: PropTypes.arrayOf(PropTypes.number),
   reviews: PropTypes.arrayOf(reviewType).isRequired,
   fetchOffersNearby: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
   onChangeFavoriteStatus: PropTypes.func.isRequired,
 };
 
@@ -192,6 +199,7 @@ function mapStateToProps(state, ownProps) {
     offersNearbyMap: getOffersNearbyMap(state, ownProps),
     currentCityLocation: getCurrentCityLocation(state),
     reviews,
+    authorizationStatus: getAuthorizationStatus(state),
   };
 }
 
