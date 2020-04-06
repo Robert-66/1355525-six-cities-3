@@ -41,6 +41,16 @@ function getUniqCities(offers) {
   return uniqCities.slice(0, 6);
 }
 
+function getOfferId(state, props) {
+  return props.offerId;
+}
+
+export const getCurrentOffer = createSelector(
+    getOffersState,
+    getOfferId,
+    (offers, offerId) => offers.data.find((offer) => offer.id === Number(offerId))
+);
+
 export const getOffers = createSelector(
     getOffersState,
     getCity,

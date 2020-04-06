@@ -26,4 +26,17 @@ export const adapterApi = {
     },
   }),
   transformOffers: (data) => data.map(adapterApi.transformOffer),
+  transformReview: (review) => ({
+    comment: review.comment,
+    date: review.date,
+    id: review.id,
+    rating: review.rating,
+    user: {
+      avatarUrl: review.user.avatar_url,
+      id: review.user.id,
+      isPro: review.user.is_pro,
+      name: review.user.name,
+    },
+  }),
+  transformReviews: (data) => data.map(adapterApi.transformReview),
 };

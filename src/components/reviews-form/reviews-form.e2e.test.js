@@ -9,8 +9,8 @@ configure({
 
 const reviewsForm = {
   data: [],
-  isLoading: false,
-  isError: false,
+  isLoadingCreateReview: false,
+  isErrorCreateReview: false,
 };
 
 const reviewFormData = {

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {reviewType} from "../../types/reviews-types";
 
 class ReviewsForm extends React.PureComponent {
   constructor(props) {
@@ -23,7 +24,7 @@ class ReviewsForm extends React.PureComponent {
     if (isRatingSet
       && this.state.review.length >= 50
       && this.state.review.length <= 300
-      && !this.props.reviews.isLoading
+      && !this.props.reviews.isLoadingCreateReview
     ) {
       this.setState({
         isButtonSubmitDisabled: false,
@@ -34,14 +35,14 @@ class ReviewsForm extends React.PureComponent {
       });
     }
 
-    if (!prevProps.reviews.isLoading && this.props.reviews.isLoading) {
+    if (!prevProps.reviews.isLoadingCreateReview && this.props.reviews.isLoadingCreateReview) {
       this.setState({
         isFormDisabled: true,
         isButtonSubmitDisabled: true,
       });
     }
 
-    if (prevProps.reviews.data.length === 0 && this.props.reviews.data.length > 0) {
+    if (prevProps.reviews.data !== this.props.reviews.data) {
       this.setState({
         ratings: [false, false, false, false, false],
         review: ``,
@@ -49,7 +50,7 @@ class ReviewsForm extends React.PureComponent {
       });
     }
 
-    if (!prevProps.reviews.isError && this.props.reviews.isError) {
+    if (!prevProps.reviews.isErrorCreateReview && this.props.reviews.isErrorCreateReview) {
       this.setState({
         isFormDisabled: false,
       });
@@ -131,7 +132,7 @@ class ReviewsForm extends React.PureComponent {
           onChange={handleTextareaReviewChange}
           disabled={isFormDisabled}
         />
-        {reviews.isError && (
+        {reviews.isErrorCreateReview && (
           <div style={{color: `red`, border: `1px solid red`, padding: `10px`, marginBottom: `10px`, borderRadius: `2px`}}>Что-то пошло не так :(</div>
         )}
         <div className="reviews__button-wrapper">
@@ -154,9 +155,9 @@ class ReviewsForm extends React.PureComponent {
 
 ReviewsForm.propTypes = {
   reviews: PropTypes.shape({
-    data: PropTypes.arrayOf(PropTypes.object).isRequired,
-    isLoading: PropTypes.bool.isRequired,
-    isError: PropTypes.bool.isRequired,
+    data: PropTypes.arrayOf(reviewType).isRequired,
+    isLoadingCreateReview: PropTypes.bool.isRequired,
+    isErrorCreateReview: PropTypes.bool.isRequired,
   }).isRequired,
   onSubmit: PropTypes.func.isRequired,
   onResetState: PropTypes.func.isRequired,
