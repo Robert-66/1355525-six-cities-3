@@ -4,8 +4,8 @@ import ReviewsForm from './reviews-form';
 
 const reviewsForm = {
   data: [],
-  isLoading: false,
-  isError: false,
+  isLoadingCreateReview: false,
+  isErrorCreateReview: false,
 };
 
 it(`ReviewsForm is rendered correctly`, () => {

@@ -4,33 +4,58 @@ import {AuthorizationStatus} from '../../reducer/user/user';
 import {Reviews} from './reviews';
 
 const mocks = {
-  reviews: [
-    {
-      comment: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.`,
-      date: `2019-05-08T14:13:56.569Z`,
-      id: 1,
-      rating: 3,
-      user: {
-        avatarUrl: `img/1.png`,
-        name: `Max`,
-      }
-    },
-    {
-      comment: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.`,
-      date: `2017-08-08T14:13:56.569Z`,
-      id: 2,
-      rating: 5,
-      user: {
-        avatarUrl: `img/2.png`,
-        name: `Anna`,
-      }
-    },
-  ],
+  reviews: {
+    data: [
+      {
+        comment: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.`,
+        date: `2019-05-08T14:13:56.569Z`,
+        id: 1,
+        rating: 3,
+        user: {
+          avatarUrl: `img/1.png`,
+          name: `Max`,
+        }
+      },
+      {
+        comment: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.`,
+        date: `2017-08-08T14:13:56.569Z`,
+        id: 2,
+        rating: 5,
+        user: {
+          avatarUrl: `img/2.png`,
+          name: `Anna`,
+        }
+      },
+    ],
+    isLoadingFetchReview: false,
+    isErrorFetchReview: false,
+  },
   reviewsForm: {
-    data: [],
-    isLoading: false,
-    isError: false,
-  }
+    data: [
+      {
+        comment: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.`,
+        date: `2019-05-08T14:13:56.569Z`,
+        id: 1,
+        rating: 3,
+        user: {
+          avatarUrl: `img/1.png`,
+          name: `Max`,
+        }
+      },
+      {
+        comment: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.`,
+        date: `2017-08-08T14:13:56.569Z`,
+        id: 2,
+        rating: 5,
+        user: {
+          avatarUrl: `img/2.png`,
+          name: `Anna`,
+        }
+      },
+    ],
+    isLoadingCreateReview: false,
+    isErrorCreateReview: false,
+  },
 };
 
 describe(`Reviews is rendered correctly`, () => {
@@ -43,6 +68,7 @@ describe(`Reviews is rendered correctly`, () => {
             reviewsForm={mocks.reviewsForm}
             authorizationStatus={AuthorizationStatus.AUTH}
             offerId={1}
+            fetchReviews={() => {}}
             onSubmitReview={() => {}}
             onResetReviewFormState={() => {}}
           />
@@ -60,6 +86,7 @@ describe(`Reviews is rendered correctly`, () => {
             reviewsForm={mocks.reviewsForm}
             authorizationStatus={AuthorizationStatus.NO_AUTH}
             offerId={1}
+            fetchReviews={() => {}}
             onSubmitReview={() => {}}
             onResetReviewFormState={() => {}}
           />
