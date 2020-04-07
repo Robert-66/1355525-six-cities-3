@@ -7,50 +7,40 @@ import {connect} from 'react-redux';
 import {AuthorizationStatus} from '../../reducer/user/user';
 import {ActionCreators} from '../../reducer/data/reviews/reviews';
 import {Operation as ReviewsOperation} from "../../reducer/data/reviews/reviews";
-import {getReviews, getReviewsForm} from "../../reducer/data/reviews/selectors";
+import {getReviewsForm} from "../../reducer/data/reviews/selectors";
 
-class Reviews extends React.PureComponent {
-  constructor(props) {
-    super(props);
+function Reviews(props) {
+  const {
+    className,
+    reviews,
+    offerId,
+    reviewsForm,
+    authorizationStatus,
+    onSubmitReview,
+    onResetReviewFormState,
+  } = props;
 
-    this.handleReviewSubmit = this.handleReviewSubmit.bind(this);
+  function handleReviewSubmit(reviewData) {
+    onSubmitReview(offerId, reviewData);
   }
 
-  componentDidMount() {
-    this.props.fetchReviews(this.props.offerId);
-  }
-
-  handleReviewSubmit(reviewData) {
-    this.props.onSubmitReview(this.props.offerId, reviewData);
-  }
-
-  render() {
-    const {
-      className,
-      reviews,
-      reviewsForm,
-      authorizationStatus,
-      onResetReviewFormState,
-    } = this.props;
-
-    return (
-      <section className={`reviews${className ? ` ` + className : ``}`}>
-        {reviews.data.length > 0 && (
-          <>
-            <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.data.length}</span></h2>
-            <ReviewsList reviews={reviews.data}/>
-            {authorizationStatus === AuthorizationStatus.AUTH && (
-              <ReviewsForm
-                reviews={reviewsForm}
-                onSubmit={this.handleReviewSubmit}
-                onResetState={onResetReviewFormState}
-              />
-            )}
-          </>
-        )}
-      </section>
-    );
-  }
+  return (
+    <section className={`reviews${className ? ` ` + className : ``}`}>
+      {reviews.data.length > 0 && (
+        <>
+          <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.data.length}</span></h2>
+          <ReviewsList reviews={reviews.data}/>
+          {authorizationStatus === AuthorizationStatus.AUTH && (
+            <ReviewsForm
+              reviews={reviewsForm}
+              onSubmit={handleReviewSubmit}
+              onResetState={onResetReviewFormState}
+            />
+          )}
+        </>
+      )}
+    </section>
+  );
 }
 
 Reviews.propTypes = {
@@ -69,12 +59,10 @@ Reviews.propTypes = {
   offerId: PropTypes.number.isRequired,
   onSubmitReview: PropTypes.func.isRequired,
   onResetReviewFormState: PropTypes.func.isRequired,
-  fetchReviews: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
-    reviews: getReviews(state),
     reviewsForm: getReviewsForm(state),
     authorizationStatus: state.user.authorizationStatus,
   };
@@ -82,7 +70,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchReviews: (offerId) => dispatch(ReviewsOperation.fetchReviews(offerId)),
     onSubmitReview: (offerId, reviewData) => dispatch(ReviewsOperation.createReview(offerId, reviewData)),
     onResetReviewFormState: () => dispatch(ActionCreators.resetReviewState()),
   };

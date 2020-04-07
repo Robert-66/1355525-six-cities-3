@@ -14,6 +14,9 @@ import {offerType} from '../../types/offers-types';
 import {AppRoute, PlaceCardView} from '../../const';
 import PlaceCardList from '../place-card-list/place-card-list';
 import {AuthorizationStatus} from '../../reducer/user/user';
+import {Operation as ReviewsOperation} from '../../reducer/data/reviews/reviews';
+import {reviewType} from '../../types/reviews-types';
+import {getReviews} from '../../reducer/data/reviews/selectors';
 
 class PlaceCardDetail extends React.PureComponent {
   constructor(props) {
@@ -22,6 +25,7 @@ class PlaceCardDetail extends React.PureComponent {
 
   componentDidMount() {
     this.props.fetchOffersNearby(this.props.offer.id);
+    this.props.fetchReviews(this.props.offerId);
   }
 
   render() {
@@ -31,6 +35,7 @@ class PlaceCardDetail extends React.PureComponent {
       offersNearbyMap,
       currentCityLocation,
       authorizationStatus,
+      reviews,
       onChangeFavoriteStatus,
     } = this.props;
     const {
@@ -137,6 +142,7 @@ class PlaceCardDetail extends React.PureComponent {
                 </div>
               </div>
               <Reviews
+                reviews={reviews}
                 offerId={id}
                 className="property__reviews"
               />
@@ -177,9 +183,15 @@ PlaceCardDetail.propTypes = {
     isError: PropTypes.bool.isRequired
   }),
   offersNearbyMap: PropTypes.arrayOf(offerType).isRequired,
+  reviews: PropTypes.shape({
+    data: PropTypes.arrayOf(reviewType).isRequired,
+    isLoadingFetchReview: PropTypes.bool.isRequired,
+    isErrorFetchReview: PropTypes.bool.isRequired,
+  }).isRequired,
   currentCityLocation: PropTypes.arrayOf(PropTypes.number),
-  fetchOffersNearby: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
+  fetchOffersNearby: PropTypes.func.isRequired,
+  fetchReviews: PropTypes.func.isRequired,
   onChangeFavoriteStatus: PropTypes.func.isRequired,
 };
 
@@ -189,6 +201,7 @@ function mapStateToProps(state, ownProps) {
     offersNearby: getOffersNearby(state),
     offersNearbyMap: getOffersNearbyMap(state, ownProps),
     currentCityLocation: getCurrentCityLocation(state),
+    reviews: getReviews(state),
     authorizationStatus: getAuthorizationStatus(state),
   };
 }
@@ -196,6 +209,7 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
   return {
     fetchOffersNearby: (offerId) => dispatch(OffersNearbyOperation.fetchOffersNearby(offerId)),
+    fetchReviews: (offerId) => dispatch(ReviewsOperation.fetchReviews(offerId)),
     onChangeFavoriteStatus: (offerId, status) => dispatch(OffersOperation.changeOfferFavoriteStatus(offerId, status))
   };
 }
