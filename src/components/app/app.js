@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {Router, Switch, Route} from 'react-router-dom';
 import history from '../../history';
 import {AppRoute} from '../../const';
@@ -8,40 +9,59 @@ import SignIn from '../sign-in/sign-in';
 import PlaceCardDetail from '../place-card-detail/place-card-detail';
 import Favorites from '../favorites/favorites';
 import PrivateRoute from '../private-route/private-route';
+import PropTypes from 'prop-types';
 
-function App() {
-  return (
-    <Router history={history}>
-      <Switch>
-        <Route exact path={AppRoute.ROOT}>
-          <Page className="page--gray page--main">
-            <Main />
-          </Page>
-        </Route>
-        <Route exact path={AppRoute.LOGIN}>
-          <Page className="page--gray page--login">
-            <SignIn />
-          </Page>
-        </Route>
-        <Route exact path={`${AppRoute.ROOM}/:id`} render={(routeProps) => (
-          <Page>
-            <PlaceCardDetail offerId={routeProps.match.params.id} />
-          </Page>
-        )}
-        />
-        <PrivateRoute
-          exact
-          path={AppRoute.FAVORITES}
-          render={() => (
+function App(props) {
+  const {isLoading, isError} = props;
+
+  if (!isLoading && !isError) {
+    return (
+      <Router history={history}>
+        <Switch>
+          <Route exact path={AppRoute.ROOT}>
+            <Page className="page--gray page--main">
+              <Main />
+            </Page>
+          </Route>
+          <Route exact path={AppRoute.LOGIN}>
+            <Page className="page--gray page--login">
+              <SignIn />
+            </Page>
+          </Route>
+          <Route exact path={`${AppRoute.ROOM}/:id`} render={(routeProps) => (
             <Page>
-              <Favorites/>
+              <PlaceCardDetail offerId={routeProps.match.params.id} />
             </Page>
           )}
-        />
-      </Switch>
-    </Router>
-
-  );
+          />
+          <PrivateRoute
+            exact
+            path={AppRoute.FAVORITES}
+            render={() => (
+              <Page>
+                <Favorites/>
+              </Page>
+            )}
+          />
+        </Switch>
+      </Router>
+    );
+  } else {
+    return null;
+  }
 }
 
-export default App;
+App.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired,
+};
+
+function mapStateToProps(state) {
+  return {
+    isLoading: state.data.offers.isLoading,
+    isError: state.data.offers.isError,
+  };
+}
+
+export {App};
+export default connect(mapStateToProps)(App);
