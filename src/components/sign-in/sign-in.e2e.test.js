@@ -26,6 +26,7 @@ describe(`SignIn`, () => {
             authorizationStatus={AuthorizationStatus.AUTH}
             redirectUrl={redirectUrl}
             onSubmit={() => {}}
+            onChangeInput={() => {}}
           />}
           RedirectUrl={redirectUrl}
         />
@@ -34,35 +35,33 @@ describe(`SignIn`, () => {
     expect(tree.text()).toEqual(redirectUrl);
   });
 
-  it(`When user sign in form is not sent`, () => {
+  it(`onSubmit is called`, () => {
     const onSubmit = jest.fn();
     const tree = shallow(
         <SignIn
           authorizationStatus={AuthorizationStatus.NO_AUTH}
           onSubmit={onSubmit}
+          onChangeInput={() => {}}
         />
     );
 
     const form = tree.find(`form`);
-    const formSendPrevention = jest.fn();
-    form.simulate(`submit`, {
-      preventDefault: formSendPrevention,
-    });
+    form.simulate(`submit`);
 
     expect(onSubmit).toHaveBeenCalledTimes(1);
-    expect(formSendPrevention).toHaveBeenCalledTimes(1);
   });
 
-  it(`When user sign in onSubmit gets the data in the correct format`, () => {
+  it(`onChangeInput is called`, () => {
     const authData = {
       email: `email@mail.ru`,
       password: `password`,
     };
-    const onSubmit = jest.fn();
+    const onChangeInput = jest.fn();
     const tree = mount(
         <SignIn
           authorizationStatus={AuthorizationStatus.NO_AUTH}
-          onSubmit={onSubmit}
+          onSubmit={() => {}}
+          onChangeInput={onChangeInput}
         />
     );
     const form = tree.find(`form`);
@@ -73,10 +72,8 @@ describe(`SignIn`, () => {
     inputEmail.simulate(`change`);
     inputPassword.instance().value = authData.password;
     inputPassword.simulate(`change`);
-    form.simulate(`submit`, {preventDefault() {}});
+    form.simulate(`submit`);
 
-    expect(onSubmit).toHaveBeenCalledTimes(1);
-
-    expect(onSubmit.mock.calls[0][0]).toEqual(authData);
+    expect(onChangeInput).toHaveBeenCalledTimes(2);
   });
 });

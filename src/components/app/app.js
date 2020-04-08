@@ -9,7 +9,10 @@ import SignIn from '../sign-in/sign-in';
 import PlaceCardDetail from '../place-card-detail/place-card-detail';
 import Favorites from '../favorites/favorites';
 import PrivateRoute from '../private-route/private-route';
+import withSignIn from '../../hocs/with-sign-in/with-sign-in';
 import PropTypes from 'prop-types';
+
+const SignInWrapped = withSignIn(SignIn);
 
 function App(props) {
   const {isLoading, isError} = props;
@@ -25,7 +28,7 @@ function App(props) {
           </Route>
           <Route exact path={AppRoute.LOGIN}>
             <Page className="page--gray page--login">
-              <SignIn />
+              <SignInWrapped />
             </Page>
           </Route>
           <Route exact path={`${AppRoute.ROOM}/:id`} render={(routeProps) => (

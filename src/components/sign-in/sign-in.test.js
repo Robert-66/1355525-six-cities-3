@@ -11,6 +11,7 @@ it(`SignIn is rendered correctly when the user is unauthorized`, () => {
           <SignIn
             authorizationStatus={AuthorizationStatus.NO_AUTH}
             onSubmit={() => {}}
+            onChangeInput={() => {}}
           />
         </BrowserRouter>
     )
