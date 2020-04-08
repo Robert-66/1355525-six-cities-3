@@ -11,6 +11,9 @@ import CitiesList from '../cities-list/cities-list';
 import SortingOptions from '../sorting-options/sorting-options';
 import {offerType} from '../../types/offers-types.js';
 import PropTypes from 'prop-types';
+import withSortingOptions from '../../hocs/with-sorting-options/with-sorting-options';
+
+const SortingOptionsWrapped = withSortingOptions(SortingOptions);
 
 function Main(props) {
   const {
@@ -45,7 +48,7 @@ function Main(props) {
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{offers.data.length} places to stay in Amsterdam</b>
                 <form className="places__sorting" action="#" method="get">
-                  <SortingOptions
+                  <SortingOptionsWrapped
                     options={sortingOptions}
                     onSelect={onSelectSortByOptionIndex}
                   />

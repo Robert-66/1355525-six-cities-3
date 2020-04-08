@@ -9,7 +9,10 @@ it(`SortingOptions is rendered correctly`, () => {
     .create(
         <SortingOptions
           options={options}
-          onSelect={() => {}}
+          activeOptionIndex={0}
+          isOpen={false}
+          onClickOption={() => {}}
+          onClickToggle={() => {}}
         />
     )
     .toJSON();
