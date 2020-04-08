@@ -148,7 +148,7 @@ exports[`ReviewsForm is rendered correctly 1`] = `
     name="review"
     onChange={[Function]}
     placeholder="Tell how was your stay, what you like and what can be improved"
-    value=""
+    value="A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam."
   />
   <div
     className="reviews__button-wrapper"
@@ -172,7 +172,7 @@ exports[`ReviewsForm is rendered correctly 1`] = `
     </p>
     <button
       className="reviews__submit form__submit button"
-      disabled={true}
+      disabled={false}
       type="submit"
     >
       Submit

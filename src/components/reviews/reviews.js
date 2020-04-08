@@ -6,8 +6,11 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {AuthorizationStatus} from '../../reducer/user/user';
 import {ActionCreators} from '../../reducer/data/reviews/reviews';
-import {Operation as ReviewsOperation} from "../../reducer/data/reviews/reviews";
-import {getReviewsForm} from "../../reducer/data/reviews/selectors";
+import {Operation as ReviewsOperation} from '../../reducer/data/reviews/reviews';
+import {getReviewsForm} from '../../reducer/data/reviews/selectors';
+import withReviewsForm from '../../hocs/with-reviews-form/with-reviews-form';
+
+const ReviewsFormWrapped = withReviewsForm(ReviewsForm);
 
 function Reviews(props) {
   const {
@@ -26,18 +29,16 @@ function Reviews(props) {
 
   return (
     <section className={`reviews${className ? ` ` + className : ``}`}>
+      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.data.length > 0 ? reviews.data.length : 0}</span></h2>
       {reviews.data.length > 0 && (
-        <>
-          <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.data.length}</span></h2>
-          <ReviewsList reviews={reviews.data}/>
-          {authorizationStatus === AuthorizationStatus.AUTH && (
-            <ReviewsForm
-              reviews={reviewsForm}
-              onSubmit={handleReviewSubmit}
-              onResetState={onResetReviewFormState}
-            />
-          )}
-        </>
+        <ReviewsList reviews={reviews.data}/>
+      )}
+      {authorizationStatus === AuthorizationStatus.AUTH && (
+        <ReviewsFormWrapped
+          reviews={reviewsForm}
+          onSubmit={handleReviewSubmit}
+          onResetState={onResetReviewFormState}
+        />
       )}
     </section>
   );
